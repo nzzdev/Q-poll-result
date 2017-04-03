@@ -1,26 +1,21 @@
-<!-- tiny example to show how svelte templating works -->
-<Header title='{{title}}' subtitle='{{subtitle}}'/>
-<div class="renderer-sum">Sum of all values: {{sumValues}}</div>
-  {{#each sampleData as sample}}
-  <div class="renderer-data-entry">
-    <div>{{sample.name || ''}}</div>
-    <div>{{sample.status || ''}}</div>
-  </div>
-  {{/each}}
-<Footer source='{{source}}' />
+<div class="q-item-container s-q-item">
+  <Header title='{{title}}' hasFivePositions='{{hasFivePositions}}'/>
 
+  <Footer notes='{{notes}}' sources='{{sources}}' />
+</div>
 <script>
   import Header from './Header.html';
   import Footer from './Footer.html';
   
   export default {
     computed: {
-      sumValues: (sampleData) => {
-        return sampleData
-          .map(sample => sample.value || 0)
-          .reduce((sum, sampleValue) => {
-            return sum + sampleValue;
-          }, 0);
+      hasFivePositions: (polls) => {
+        // check if there is a five position poll
+        return true;
+      },
+      orderedPolls: (polls) => {
+        // order polls by date
+        return polls;
       }
     },
     components: {

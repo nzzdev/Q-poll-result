@@ -1,0 +1,22 @@
+{
+  "Umfrageresultat": "poll result",
+  "Titel": "title",
+  "Umfragen": "polls",
+  "Umfrageergebnis mit 5 Positionen": "5 position poll result",
+  "Umfrageergebnis mit 3 Positionen": "3 position poll result",
+  "Datum": "date",
+  "Antworten (in Prozent)": "answers (as percentage)",
+  "bestimmt dafür": "certainly yes",
+  "eher dafür": "rather yes",
+  "weiss nicht": "undecided",
+  "eher dagegen": "rather no",
+  "bestimmt dagegen": "certainly no",
+  "bestimmt/eher dafür": "certainly/rather yes",
+  "bestimmt/eher dagegen": "certainly/rather no",
+  "Bemerkungen": "notes",
+  "Quellen": "sources",
+  "Quelle": "source",
+  "Text": "text",
+  "Link": "link",
+  "Url": "URL"
+}
