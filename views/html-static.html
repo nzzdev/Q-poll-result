@@ -1,25 +1,29 @@
 <div class="q-item-container s-q-item">
-  <Header title='{{title}}' hasFivePositions='{{hasFivePositions}}'/>
-
+  <Header title='{{title}}' />
+  <Legend type='{{topPollType}}' />
+  <div class="q-poll-result-polls">
+    {{#each polls as poll, index}}
+      <PollResult poll="{{poll}}" index="{{index}}" numberPolls="{{polls.length}}" topPollType='{{topPollType}}' pollTypeInfos='{{pollTypeInfos}}'/>
+    {{/each}}
+  </div>
   <Footer notes='{{notes}}' sources='{{sources}}' />
 </div>
 <script>
   import Header from './Header.html';
+  import Legend from './Legend.html';
+  import PollResult from './PollResult.html';
   import Footer from './Footer.html';
   
   export default {
     computed: {
-      hasFivePositions: (polls) => {
-        // check if there is a five position poll
-        return true;
-      },
-      orderedPolls: (polls) => {
-        // order polls by date
-        return polls;
+      topPollType: (polls) => {
+        return polls[0].type;
       }
     },
     components: {
       Header,
+      Legend,
+      PollResult,
       Footer
     }
   };

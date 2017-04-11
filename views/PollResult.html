@@ -1,0 +1,66 @@
+<div class="q-poll-result-poll {{poll.cssClass}}">
+  <h3 class="s-font-note s-font-note--strong">
+    {{#if index === 0}}
+      Aktuelle
+    {{else}}
+      {{numberPolls - index}}.
+    {{/if}}
+    Umfrage vom {{pollDate}}
+  </h3>
+  <!-- if the poll type differs from the top most poll type, show legend of this poll type -->
+  {{#if topPollType !== poll.type}}
+  <Legend type='{{pollType}}' />
+  {{/if}}
+  <div class="q-poll-result-arrow"></div>
+  {{#each poll.answers as answer}}
+    <div class="q-poll-result-bar {{answer.cssClass}}" style="width: {{answer.value}}%;">
+      <span class="s-font-note-s">{{answer.value}}%</span>
+    </div>
+  {{/each}}
+</div>
+
+<script>
+  import Legend from './Legend.html';
+
+  export default {
+    computed: {
+      pollType: (poll) => {
+        return poll.type;
+      },
+      pollDate: (poll) => {
+        let date = new Date(poll.date);
+        let year = date.getFullYear().toString();
+        let month = (date.getMonth() + 1).toString();
+        let day = date.getDate().toString();
+        return `${day[1] ? day : '0' + day[0]}.${month[1] ? month : '0' + month[0]}.${year}`;
+      },
+      enhancedPoll: (poll, pollTypeInfos, index) => {
+        let pollAnswers = poll.answers;
+        let answersArray = Object.keys(pollAnswers)
+          .map(answerName => {
+            let answerInfos = pollTypeInfos[poll.type].answers
+              .filter(answerInfo => {
+                return answerInfo.name === answerName;
+              })[0];
+            let answer = {};
+            answer.label = answerInfos.label;
+            answer.value = pollAnswers[answerName];
+            answer.cssClass = answerInfos.cssClass;
+            return answer;
+          });
+        poll.answers = answersArray;
+        
+        poll.cssClass = '';
+        if (index === 0) {
+          poll.cssClass = 'q-poll-result-poll--current';
+        }
+        
+        return poll;
+      }
+    },
+    components: {
+      Legend
+    }
+  };
+</script>
+

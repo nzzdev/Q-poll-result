@@ -4,7 +4,7 @@ const Joi = require('joi');
 const resourcesDir = __dirname + '/../../resources/';
 const viewsDir = __dirname + '/../../views/';
 
-
+const pollTypeInfos = require(resourcesDir + '/helpers/pollTypeInfos.js');
 const schemaString = JSON.parse(fs.readFileSync(resourcesDir + 'schema.json', {
 	encoding: 'utf-8'
 }));
@@ -30,13 +30,15 @@ module.exports = {
     cors: true
 	},
 	handler: function(request, reply) {
+    let item = request.payload.item;
+    item.pollTypeInfos = pollTypeInfos;
 		let data = {
 			stylesheets: [
 				{
 					name: 'default'
 				}
 			], 
-			markup: staticTemplate.render(request.payload.item)
+			markup: staticTemplate.render(item)
 		}
 		return reply(data);
 	}
