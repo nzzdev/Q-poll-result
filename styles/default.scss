@@ -109,12 +109,6 @@ $labelLineHeight: 40px;
   color: #787878;
 }
 
-.q-poll-result-positions {
-  float: left;
-  width: 100%;
-  position: relative;
-}
-
 .q-poll-result-arrow {
   border: $arrowSize solid currentColor;
   border-bottom-color: transparent;
@@ -124,8 +118,4 @@ $labelLineHeight: 40px;
   position: absolute;
   left: 50%;
   margin-left: -$arrowSize;
-}
-
-.s-q-item__footer {
-  margin-top: 15px;
 }

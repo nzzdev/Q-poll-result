@@ -1,9 +1,9 @@
 <div class="q-item-container s-q-item">
   <Header title='{{title}}' />
-  <Legend type='{{topPollType}}' />
+  <Legend answers='{{topPollAnswers}}' />
   <div class="q-poll-result-polls">
-    {{#each polls as poll, index}}
-      <PollResult poll="{{poll}}" index="{{index}}" numberPolls="{{polls.length}}" topPollType='{{topPollType}}' pollTypeInfos='{{pollTypeInfos}}'/>
+    {{#each pollResultsWithDisplayInfo as pollResult, index}}
+      <PollResult pollResult="{{pollResult}}" index="{{index}}" numberPolls="{{polls.length}}" topPollType='{{topPollType}}'/>
     {{/each}}
   </div>
   <Footer notes='{{notes}}' sources='{{sources}}' />
@@ -18,6 +18,38 @@
     computed: {
       topPollType: (polls) => {
         return polls[0].type;
+      },
+      topPollAnswers: (pollResultsWithDisplayInfo) => {
+        return pollResultsWithDisplayInfo[0].answers;
+      },
+      pollResultsWithDisplayInfo: (polls, pollTypeInfos) => {
+        polls.forEach((poll, index) => {
+          // transform object of answers to an array of answer objects containing 
+          // the answer label, value and css class attribute
+          // pollTypeInfos works as a helper object here to deliver these additional 
+          // information, mapping is done via poll type and answer name
+          const pollAnswers = poll.answers;
+          const transformedAnswers = Object.keys(pollAnswers)
+            .map(answerName => {
+              const answerInfos = pollTypeInfos[poll.type].answers
+                .filter(answerInfo => {
+                  return answerInfo.name === answerName;
+                })[0];
+              let answer = {};
+              answer.label = answerInfos.label;
+              answer.value = pollAnswers[answerName];
+              answer.cssClass = answerInfos.cssClass;
+              return answer;
+            });
+          poll.answers = transformedAnswers;
+          
+          // add special css class attribute for the top most poll result
+          poll.cssClass = '';
+          if (index === 0) {
+            poll.cssClass = 'q-poll-result-poll--current';
+          }
+        })
+        return polls;
       }
     },
     components: {
