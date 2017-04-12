@@ -30,15 +30,18 @@ module.exports = {
     cors: true
 	},
 	handler: function(request, reply) {
-    let item = request.payload.item;
-    item.pollTypeInfos = pollTypeInfos;
+    let renderingData = {
+      item: request.payload.item,
+      pollTypeInfos: pollTypeInfos
+    }
+    
 		let data = {
 			stylesheets: [
 				{
 					name: 'default'
 				}
 			], 
-			markup: staticTemplate.render(item)
+			markup: staticTemplate.render(renderingData)
 		}
 		return reply(data);
 	}

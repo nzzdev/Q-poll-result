@@ -1,12 +1,12 @@
 <div class="q-item-container s-q-item">
-  <Header title='{{title}}' />
+  <Header title='{{item.title}}' />
   <Legend answers='{{topPollAnswers}}' />
   <div class="q-poll-result-polls">
     {{#each pollResultsWithDisplayInfo as pollResult, index}}
       <PollResult pollResult="{{pollResult}}" index="{{index}}" numberPolls="{{polls.length}}" topPollType='{{topPollType}}'/>
     {{/each}}
   </div>
-  <Footer notes='{{notes}}' sources='{{sources}}' />
+  <Footer notes='{{item.notes}}' sources='{{item.sources}}' />
 </div>
 <script>
   import Header from './Header.html';
@@ -16,6 +16,9 @@
   
   export default {
     computed: {
+      polls: (item) => {
+        return item.polls;
+      },
       topPollType: (polls) => {
         return polls[0].type;
       },
