@@ -4,11 +4,11 @@ services:
 - docker
 language: node_js
 node_js:
-- '7.3'
+- '7.6'
 install:
 - npm install
 before_script:
-- DOCKER_IMAGE_NAME="q-renderer-skeleton"
+- DOCKER_IMAGE_NAME="q-poll-result"
 - DOCKER_TAG=$TRAVIS_BRANCH
 script:
 - npm test
@@ -24,4 +24,4 @@ cache:
   - node_modules
 notifications:
   slack:
-    secure: securekey
+    secure: j7hGcpNDRisdFB+i9KAnBWGIBTf6EVz6tUl/s5gS/uOgtngRfnS1cAupAXNed9PXetEi73m0NDVd5IDilTStOV+DghRIZ686PqiaSu+lc4t0e5rW5qHmObeLfkisbygz9wqUhoH4AbAiF+wKkQYO20j8Xz9ahD3K8o4LF5GYR56BCiqyH0f0tfiZokHnowdDkuM1rKPiRAqpao4D1OlC10cWlZ0KHgqz8TM5OaODKgva64RG1OiJytUDJ3hajTVUN9JejssaQodnrvXG4szcTlGfov8OyX3ciyvweRRjXzqzW2VRqBFHVLU2gWnEMaSpT3obvdtEhj8Cykh1ZpjFEaSdrlH7i9oNdniCmOEFuwLSOM1BfxobAbL20xGZjibY3v5y8YW16wzEKYslCzzwNRF5ijWaSTRXvK7iC46n8PTZynpxY8DOtmUDsiiGubB8546u8v1fjMiUicD0w3JQdpFYZkVmg/RUDymmopReQmfrlX7zvesYNuDTz+DnG0B/MywUkNZTJTN7z6/Ci0YxxLIzcHA8EApdUtYUwQyNCNxHRrgnyaaNpPOsaHfhgTybKZeSX5luvn2uJct7LJkw4QFu8mA42jeFzOLKGzyRikPpI8t9W7TRZcc/HsGoEg8YUMWAC2KXSmw8HBlnCp1QYy4J1WwbVT1rYHEjPFBe9Tk=

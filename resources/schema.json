@@ -1,90 +1,54 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
+  "title": "Umfrageresultat",
   "properties": {
     "title": {
       "title": "Titel",
       "type": "string"
     },
-    "subtitle": {
-      "title": "Untertitel",
-      "type": "string"
-    },
-    "sampleData": {
-      "title": "Beispiele",
+    "polls": {
+      "title": "Umfragen",
       "type": "array",
       "Q:options": {
         "expandable": {
-          "itemLabelProperty": "name"
+          "itemLabelProperty": "date"
         }
       },
       "items": {
+        "oneOf": [
+          {"$ref": "#/definitions/preVoteNoToYes5"},
+          {"$ref": "#/definitions/preVoteNoToYes3"}
+        ]
+      }
+    },
+    "notes": {
+      "type": "string",
+      "title": "Bemerkungen"
+    },
+    "sources": {
+      "type": "array",
+      "title": "Quellen",
+      "items": {
+        "title": "Quelle",
         "type": "object",
-        "title": "Beispiel",
         "properties": {
-          "name": {
-            "title": "Name",
+          "text": {
+            "title": "Text",
             "type": "string"
           },
-          "value": {
-            "title": "Wert",
-            "type": "number",
-            "Q:options": {
-              "step": "0.1"
-            }
-          },
-          "compactObject": {
-            "title": "kompaktes Objekt",
+          "link": {
+            "Q:type": "link",
+            "title": "Link",
             "type": "object",
-            "Q:options": {
-              "compact": true
-            },
             "properties": {
               "url": {
                 "title": "Url",
                 "type": "string"
+              },
+              "isValid": {
+                "type": "boolean"
               }
-            }
-          },
-          "status": {
-            "title": "Status",
-            "type": "string",
-            "default": "open",
-            "enum": [
-              "open",
-              "in progress",
-              "done"
-            ],
-            "Q:options": {
-              "enum_titles": [
-                "offen",
-                "in Bearbeitung",
-                "erledigt"
-              ]
-            }
-          }
-        }
-      }
-    },
-    "source": {
-      "title": "Quelle",
-      "type": "object",
-      "properties": {
-        "text": {
-          "title": "Text",
-          "type": "string"
-        },
-        "link": {
-          "Q:type": "link",
-          "title": "Link",
-          "type": "object",
-          "properties": {
-            "url": {
-              "title": "Url",
-              "type": "string"
-            },
-            "isValid": {
-              "type": "boolean"
             }
           }
         }
@@ -93,5 +57,95 @@
   },
   "required": [
     "title"
-  ]
+  ],
+  "definitions": {
+    "preVoteNoToYes5": {
+      "type": "object",
+      "title": "Umfrageergebnis mit 5 Positionen",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "preVoteNoToYes5",
+          "enum": ["preVoteNoToYes5"]
+        },
+        "date": {
+          "type": "string",
+          "title": "Datum",
+          "Q:type": "date"
+        },
+        "answers": {
+          "type": "object",
+          "title": "Antworten (in Prozent)",
+          "properties": {
+            "certain-yes": {
+              "type": "integer",
+              "title": "bestimmt dafür"
+            },
+            "rather-yes": {
+              "type": "integer",
+              "title": "eher dafür"
+            },
+            "undecided": {
+              "type": "integer",
+              "title": "weiss nicht"
+            },
+            "rather-no": {
+              "type": "integer",
+              "title": "eher dagegen"
+            },
+            "certain-no": {
+              "type": "integer",
+              "title": "bestimmt dagegen"
+            }
+          },
+          "required": [
+            "certain-yes",
+            "rather-yes",
+            "undecided",
+            "rather-no",
+            "certain-no"
+          ]
+        }
+      }
+    },
+    "preVoteNoToYes3": {
+      "type": "object",
+      "title": "Umfrageergebnis mit 3 Positionen",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "preVoteNoToYes3",
+          "enum": ["preVoteNoToYes3"]
+        },
+        "data": {
+          "type": "string",
+          "title": "Datum",
+          "Q:type": "date"
+        },
+        "answers": {
+          "type": "object",
+          "title": "Antworten (in Prozent)",
+          "properties": {
+            "yes": {
+              "type": "integer",
+              "title": "bestimmt/eher dafür"
+            },
+            "undecided": {
+              "type": "integer",
+              "title": "weiss nicht"
+            },
+            "no": {
+              "type": "integer",
+              "title": "bestimmt/eher dagegen"
+            }
+          },
+          "required": [
+            "yes",
+            "undecided",
+            "no"
+          ]
+        }
+      }
+    }
+  }
 }

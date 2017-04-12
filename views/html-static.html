@@ -1,30 +1,64 @@
-<!-- tiny example to show how svelte templating works -->
-<Header title='{{title}}' subtitle='{{subtitle}}'/>
-<div class="renderer-sum">Sum of all values: {{sumValues}}</div>
-  {{#each sampleData as sample}}
-  <div class="renderer-data-entry">
-    <div>{{sample.name || ''}}</div>
-    <div>{{sample.status || ''}}</div>
+<div class="q-item-container s-q-item">
+  <Header title='{{item.title}}' />
+  <Legend answers='{{topPollAnswers}}' />
+  <div class="q-poll-result-polls">
+    {{#each pollResultsWithDisplayInfo as pollResult, index}}
+      <PollResult pollResult="{{pollResult}}" index="{{index}}" numberPolls="{{polls.length}}" topPollType='{{topPollType}}'/>
+    {{/each}}
   </div>
-  {{/each}}
-<Footer source='{{source}}' />
-
+  <Footer notes='{{item.notes}}' sources='{{item.sources}}' />
+</div>
 <script>
   import Header from './Header.html';
+  import Legend from './Legend.html';
+  import PollResult from './PollResult.html';
   import Footer from './Footer.html';
   
   export default {
     computed: {
-      sumValues: (sampleData) => {
-        return sampleData
-          .map(sample => sample.value || 0)
-          .reduce((sum, sampleValue) => {
-            return sum + sampleValue;
-          }, 0);
+      polls: (item) => {
+        return item.polls;
+      },
+      topPollType: (polls) => {
+        return polls[0].type;
+      },
+      topPollAnswers: (pollResultsWithDisplayInfo) => {
+        return pollResultsWithDisplayInfo[0].answers;
+      },
+      pollResultsWithDisplayInfo: (polls, pollTypeInfos) => {
+        polls.forEach((poll, index) => {
+          // transform object of answers to an array of answer objects containing 
+          // the answer label, value and css class attribute
+          // pollTypeInfos works as a helper object here to deliver these additional 
+          // information, mapping is done via poll type and answer name
+          const pollAnswers = poll.answers;
+          const transformedAnswers = Object.keys(pollAnswers)
+            .map(answerName => {
+              const answerInfos = pollTypeInfos[poll.type].answers
+                .filter(answerInfo => {
+                  return answerInfo.name === answerName;
+                })[0];
+              let answer = {};
+              answer.label = answerInfos.label;
+              answer.value = pollAnswers[answerName];
+              answer.cssClass = answerInfos.cssClass;
+              return answer;
+            });
+          poll.answers = transformedAnswers;
+          
+          // add special css class attribute for the top most poll result
+          poll.cssClass = '';
+          if (index === 0) {
+            poll.cssClass = 'q-poll-result-poll--current';
+          }
+        })
+        return polls;
       }
     },
     components: {
       Header,
+      Legend,
+      PollResult,
       Footer
     }
   };
