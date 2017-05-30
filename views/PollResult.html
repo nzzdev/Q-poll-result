@@ -31,6 +31,9 @@
         return pollResult.answers;
       },
       pollDate: (pollResult) => {
+        if (!pollResult.date) {
+          return '';
+        }
         const date = new Date(pollResult.date);
         const year = date.getFullYear().toString();
         const month = (date.getMonth() + 1).toString();
