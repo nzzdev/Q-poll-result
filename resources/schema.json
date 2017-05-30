@@ -66,7 +66,10 @@
         "type": {
           "type": "string",
           "default": "preVoteNoToYes5",
-          "enum": ["preVoteNoToYes5"]
+          "enum": ["preVoteNoToYes5"],
+          "Q:options": {
+            "hideInEditor": true
+          }
         },
         "date": {
           "type": "string",
@@ -78,33 +81,26 @@
           "title": "Antworten (in Prozent)",
           "properties": {
             "certain-yes": {
-              "type": "integer",
+              "type": "number",
               "title": "bestimmt dafür"
             },
             "rather-yes": {
-              "type": "integer",
+              "type": "number",
               "title": "eher dafür"
             },
             "undecided": {
-              "type": "integer",
+              "type": "number",
               "title": "weiss nicht"
             },
             "rather-no": {
-              "type": "integer",
+              "type": "number",
               "title": "eher dagegen"
             },
             "certain-no": {
-              "type": "integer",
+              "type": "number",
               "title": "bestimmt dagegen"
             }
-          },
-          "required": [
-            "certain-yes",
-            "rather-yes",
-            "undecided",
-            "rather-no",
-            "certain-no"
-          ]
+          }
         }
       }
     },
@@ -115,9 +111,12 @@
         "type": {
           "type": "string",
           "default": "preVoteNoToYes3",
-          "enum": ["preVoteNoToYes3"]
+          "enum": ["preVoteNoToYes3"],
+          "Q:options": {
+            "hideInEditor": true
+          }
         },
-        "data": {
+        "date": {
           "type": "string",
           "title": "Datum",
           "Q:type": "date"
@@ -127,23 +126,18 @@
           "title": "Antworten (in Prozent)",
           "properties": {
             "yes": {
-              "type": "integer",
+              "type": "number",
               "title": "bestimmt/eher dafür"
             },
             "undecided": {
-              "type": "integer",
+              "type": "number",
               "title": "weiss nicht"
             },
             "no": {
-              "type": "integer",
+              "type": "number",
               "title": "bestimmt/eher dagegen"
             }
-          },
-          "required": [
-            "yes",
-            "undecided",
-            "no"
-          ]
+          }
         }
       }
     }
