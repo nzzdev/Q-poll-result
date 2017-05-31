@@ -2,8 +2,8 @@
   <Header title='{{item.title}}' />
   <Legend answers='{{topPollAnswers}}' />
   <div class="q-poll-result-polls">
-    {{#each pollResultsWithDisplayInfo as pollResult, index}}
-      <PollResult pollResult="{{pollResult}}" index="{{index}}" numberPolls="{{polls.length}}" topPollType='{{topPollType}}'/>
+    {{#each filteredAndSortedPollResults as pollResult, index}}
+      <PollResult pollResult="{{pollResult}}" index="{{index}}" numberPolls="{{filteredAndSortedPollResults.length}}" topPollType='{{topPollType}}'/>
     {{/each}}
   </div>
   <Footer notes='{{item.notes}}' sources='{{item.sources}}' />
@@ -13,49 +13,73 @@
   import Legend from './Legend.html';
   import PollResult from './PollResult.html';
   import Footer from './Footer.html';
-  
+
   export default {
     computed: {
       polls: (item) => {
+        if (!item.polls) {
+          return [];
+        }
         return item.polls;
       },
-      topPollType: (polls) => {
-        return polls[0].type;
+      topPollType: (filteredAndSortedPollResults) => {
+        return filteredAndSortedPollResults[0].type;
       },
-      topPollAnswers: (pollResultsWithDisplayInfo) => {
-        return pollResultsWithDisplayInfo[0].answers;
+      topPollAnswers: (filteredAndSortedPollResults) => {
+        return filteredAndSortedPollResults[0].answers;
       },
       pollResultsWithDisplayInfo: (polls, pollTypeInfos) => {
         polls.forEach((poll, index) => {
-          // transform object of answers to an array of answer objects containing 
-          // the answer label, value and css class attribute
-          // pollTypeInfos works as a helper object here to deliver these additional 
-          // information, mapping is done via poll type and answer name
-          const pollAnswers = poll.answers;
-          const transformedAnswers = Object.keys(pollAnswers)
-            .map(answerName => {
-              const answerInfos = pollTypeInfos[poll.type].answers
-                .filter(answerInfo => {
-                  return answerInfo.name === answerName;
-                })[0];
-              let answer = {};
-              answer.label = answerInfos.label;
-              answer.value = pollAnswers[answerName];
-              if (!answer.value) {
-                answer.value = 0;
-              }
-              answer.cssClass = answerInfos.cssClass;
-              return answer;
-            });
-          poll.answers = transformedAnswers;
-          
-          // add special css class attribute for the top most poll result
-          poll.cssClass = '';
-          if (index === 0) {
-            poll.cssClass = 'q-poll-result-poll--current';
-          }
-        })
+            // transform object of answers to an array of answer objects containing 
+            // the answer label, value and css class attribute
+            // pollTypeInfos works as a helper object here to deliver these additional 
+            // information, mapping is done via poll type and answer name
+            const pollAnswers = poll.answers;
+            const transformedAnswers = Object.keys(pollAnswers)
+              .map(answerName => {
+                const answerInfos = pollTypeInfos[poll.type].answers
+                  .filter(answerInfo => {
+                    return answerInfo.name === answerName;
+                  })[0];
+                let answer = {};
+                answer.label = answerInfos.label;
+                answer.value = pollAnswers[answerName];
+                if (!answer.value) {
+                  answer.value = 0;
+                }
+                answer.cssClass = answerInfos.cssClass;
+                return answer;
+              });
+            poll.answers = transformedAnswers;
+            
+            // add special css class attribute for the top most poll result
+            poll.cssClass = '';
+            if (index === 0) {
+              poll.cssClass = 'q-poll-result-poll--current';
+            }
+          })
+
         return polls;
+      },
+      filteredAndSortedPollResults: (pollResultsWithDisplayInfo) => {
+        return pollResultsWithDisplayInfo
+          .filter(poll => {
+            const valueSum = poll.answers
+              .map(pollAnswer => pollAnswer.value)
+              .reduce((acc, value) => {
+                return acc + value;
+              }, 0);
+            return valueSum === 100; 
+          })
+          .sort((pollA, pollB) => {
+            if (pollA.date && pollB.date) {
+              const dateA = new Date(pollA.date);
+              const dateB = new Date(pollB.date);
+              if (dateA < dateB) return 1;
+              if (dateA > dateB) return -1;
+            }
+            return 0;
+          });
       }
     },
     components: {
