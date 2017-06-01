@@ -17,9 +17,6 @@
   export default {
     computed: {
       polls: (item) => {
-        if (!item.polls) {
-          return [];
-        }
         return item.polls;
       },
       topPollType: (filteredAndSortedPollResults) => {
