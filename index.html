@@ -15,7 +15,7 @@
     <script>
       let data = {
         "item": {
-          "title": "Stimmabsichten zur Milchkuh-Initiative",
+          "title": "Stimmabsichten' zur Milchkuh-Initiative",
           "polls": [
             {
               "type": "preVoteNoToYes5",
@@ -60,7 +60,7 @@
         }
       };
 
-      fetch(`http://localhost:3003/rendering-info/html-static`, {
+      fetch(`http://localhost:3000/rendering-info/html-static`, {
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
@@ -73,7 +73,7 @@
         .then(data => {
           data.stylesheets.forEach(stylesheet => {
             if (stylesheet.name) {
-              stylesheet.url = `http://localhost:3003/stylesheet/${stylesheet.name}`
+              stylesheet.url = `http://localhost:3000/stylesheet/${stylesheet.name}`
             }
             loadCSS(stylesheet.url)
           })
