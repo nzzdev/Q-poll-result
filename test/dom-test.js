@@ -7,7 +7,7 @@ let renderingData = {
   pollTypeInfos: require('../resources/helpers/pollTypeInfos.js')
 }
 require('svelte/ssr/register');
-const staticTpl = require('../views/html-static.html');
+const staticTpl = require('../views/HtmlStatic.html');
 var markup = staticTpl.render(JSON.parse(JSON.stringify(renderingData)));
 
 
