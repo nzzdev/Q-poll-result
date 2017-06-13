@@ -1,10 +1,14 @@
 const JsDom = require('jsdom');
 const expect = require('chai').expect;
 
-const mockData = require('./resources/mock-data');
+let mockData = require('./resources/mock-data');
+let renderingData = {
+  item: mockData,
+  pollTypeInfos: require('../resources/helpers/pollTypeInfos.js')
+}
 require('svelte/ssr/register');
-const staticTpl = require('../views/html-static.html');
-var markup = staticTpl.render(JSON.parse(JSON.stringify(mockData)));
+const staticTpl = require('../views/HtmlStatic.html');
+var markup = staticTpl.render(JSON.parse(JSON.stringify(renderingData)));
 
 
 function element(selector) {
@@ -27,17 +31,16 @@ function elementCount(selector) {
   })
 }
 
-// some basic dom tests with mock data
-describe('Q election votes dom tests', function() {
-  it('should pass if sum of values is found', function() {
-    return elementCount('div.renderer-sum').then(value => {
-        expect(value).to.be.equal(1);
+describe('Q poll result dom tests', function() {
+  it('should pass if at least one legend is found', function() {
+    return elementCount('ul.q-poll-result-legend').then(value => {
+        expect(value).to.be.greaterThan(0);
     })
   })
 
-  it('should pass if for each sample data entry a DOM element is created', function() {
-    return elementCount('div.renderer-data-entry').then(value => {
-      expect(value).to.be.equal(mockData.sampleData.length);
+  it('should pass if exactly one current result bar is found', function() {
+    return elementCount('div.q-poll-result-poll--current').then(value => {
+      expect(value).to.be.equal(1);
     })
   })
 })

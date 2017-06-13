@@ -1,24 +1,35 @@
 module.exports = {
-  title: "Demo Renderer Skeleton",
-  sampleData: [
+  title: "Stimmabsichten zur Milchkuh-Initiative",
+  polls: [
     {
-      name: "Name 1",
-      value: 12,
-      status: "open"
+      type: "preVoteNoToYes5",
+      date: "2016-04-29",
+      answers: {
+        "certain-yes": 21,
+        "rather-yes": 21,
+        "undecided": 11,
+        "rather-no": 19,
+        "certain-no": 28
+      }
     },
     {
-      name: "Name 2"
-    },
-    {
-      name: "Name 3",
-      value: 7
+      type: "preVoteNoToYes5",
+      date: "2016-05-25",
+      answers: {
+        "certain-yes": 22,
+        "rather-yes": 18,
+        "undecided": 11,
+        "rather-no": 17,
+        "certain-no": 32
+      }
     }
   ],
-  source: {
+  notes: "Bei allen ausgewiesenen Zahlen ist bei einer 95-prozentigen Wahrscheinlichkeit ein statistischer Unsicherheitsbereich von rund 2.7 Prozentpunkten plus/minus mitzudenken (2.9 bei der 1. Umfrage).",
+  sources: [{
     text: "NZZ Storytelling",
     link: {
       url: "https://nzz.ch/storytelling",
       isValid: true
     }
-  }
+  }]
 }
