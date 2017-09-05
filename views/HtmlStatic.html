@@ -56,18 +56,12 @@
                 return answer;
               });
             poll.answers = transformedAnswers;
-            
-            // add special css class attribute for the top most poll result
-            poll.cssClass = '';
-            if (index === 0) {
-              poll.cssClass = 'q-poll-result-poll--current';
-            }
           })
 
         return polls;
       },
       filteredAndSortedPollResults: (pollResultsWithDisplayInfo) => {
-        return pollResultsWithDisplayInfo
+        let sortedResult =  pollResultsWithDisplayInfo
           .filter(poll => {
             const valueSum = poll.answers
               .map(pollAnswer => pollAnswer.value)
@@ -85,6 +79,8 @@
             }
             return 0;
           });
+          sortedResult[0].cssClass = 'q-poll-result-poll--current'
+          return sortedResult;
       },
       hasCompletePolls: (filteredAndSortedPollResults) => {
         return filteredAndSortedPollResults!== undefined && filteredAndSortedPollResults.length > 0;
