@@ -4,6 +4,8 @@ const Joi = require('joi');
 const resourcesDir = __dirname + '/../../resources/';
 const viewsDir = __dirname + '/../../views/';
 
+const styleHashMap = require(__dirname + `/../../styles/hashMap.json`);
+
 const pollTypeInfos = require(resourcesDir + '/helpers/pollTypeInfos.js');
 const schemaString = JSON.parse(fs.readFileSync(resourcesDir + 'schema.json', {
 	encoding: 'utf-8'
@@ -27,6 +29,7 @@ module.exports = {
         toolRuntimeConfig: Joi.object()
 			}
 		},
+		cache: false, // do not send cache control header to let it be added by Q Server
     cors: true
 	},
 	handler: function(request, reply) {
@@ -38,7 +41,7 @@ module.exports = {
 		let data = {
 			stylesheets: [
 				{
-					name: 'default'
+					name: styleHashMap.default
 				}
 			], 
 			markup: staticTemplate.render(renderingData)
