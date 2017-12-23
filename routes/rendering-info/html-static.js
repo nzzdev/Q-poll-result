@@ -19,7 +19,7 @@ const staticTemplate = require(viewsDir + 'HtmlStatic.html');
 module.exports = {
 	method: 'POST',
 	path: '/rendering-info/html-static',
-	config: {
+	options: {
 		validate: {
       options: {
         allowUnknown: true
@@ -32,7 +32,7 @@ module.exports = {
 		cache: false, // do not send cache control header to let it be added by Q Server
     cors: true
 	},
-	handler: function(request, reply) {
+	handler: function(request, h) {
     let renderingData = {
       item: request.payload.item,
       pollTypeInfos: pollTypeInfos
@@ -46,6 +46,6 @@ module.exports = {
 			], 
 			markup: staticTemplate.render(renderingData)
 		}
-		return reply(data);
+		return data;
 	}
 }
