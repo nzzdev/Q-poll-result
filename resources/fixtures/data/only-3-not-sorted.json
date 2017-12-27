@@ -1,31 +1,27 @@
 {
-  "title": "FIXTURE: Stimmabsichten' zur Milchkuh-Initiative",
+  "title": "FIXTURE: nur 3er Positionen - Datum nicht sortiert",
   "polls": [
     {
-      "type": "preVoteNoToYes5",
-      "date": "2016-04-29",
-      "answers": {
-        "certain-yes": 21,
-        "rather-yes": 21,
-        "undecided": 11,
-        "rather-no": 19,
-        "certain-no": 28
-      }
-    },
-    {
-      "type": "preVoteNoToYes5",
+      "type": "preVoteNoToYes3",
       "date": "2016-05-25",
       "answers": {
-        "certain-yes": 22,
-        "rather-yes": 18,
+        "yes": 22,
         "undecided": 11,
-        "rather-no": 17,
-        "certain-no": 32
+        "no": 67
       }
     },
     {
       "type": "preVoteNoToYes3",
-      "date": "2016-05-25",
+      "date": "2016-04-29",
+      "answers": {
+        "yes": 22,
+        "undecided": 11,
+        "no": 67
+      }
+    },
+    {
+      "type": "preVoteNoToYes3",
+      "date": "2016-06-25",
       "answers": {
         "yes": 22,
         "undecided": 11,

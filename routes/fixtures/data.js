@@ -2,7 +2,10 @@ const fixtureDataDirectory = '../../resources/fixtures/data';
 
 // provide every fixture data file present in ../../resources/fixtures/data
 const fixtureData = [
-  require(`${fixtureDataDirectory}/result.json`),
+  require(`${fixtureDataDirectory}/mixed-3-5-sorted.json`),
+  require(`${fixtureDataDirectory}/only-3-not-sorted.json`),
+  require(`${fixtureDataDirectory}/only-5-not-sorted.json`),
+  require(`${fixtureDataDirectory}/only-3-not-sorted-one-not-100.json`),
 ];
 
 module.exports = {
