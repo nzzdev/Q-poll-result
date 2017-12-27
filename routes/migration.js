@@ -33,6 +33,6 @@ module.exports = {
         item: item
       }
     }
-    return Boom.create(304, 'item not modified');
+    return h.response('item had not to be modified').code(304);
   }
 }

@@ -1,5 +1,5 @@
 {
-  "title": "FIXTURE: nur 3er Positionen - eine < 100 - Datum nicht sortiert",
+  "title": "FIXTURE: only 3 positions - one < 100% - not sorted by date",
   "polls": [
     {
       "type": "preVoteNoToYes3",
