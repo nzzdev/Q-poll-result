@@ -30,7 +30,7 @@ async function start() {
 
   });
 
-  const mockData = JSON.parse(JSON.stringify(require('./resources/mock-data.js')));
+  const mockData = require('../resources/fixtures/data/mixed-3-5-sorted.json');
 
   describe('rendering-info endpoints', () => {
 
@@ -38,7 +38,9 @@ async function start() {
       const request = {
         method: 'POST',
         url: '/rendering-info/html-static',
-        payload: JSON.stringify({ item: mockData })
+        payload: { 
+          item: mockData 
+        }
       };
       const response = await server.inject(request);
       expect(response.statusCode).to.be.equal(200);
