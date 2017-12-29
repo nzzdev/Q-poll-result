@@ -10,29 +10,43 @@ async function start() {
   server.route(routes);
   await server.start();
 
-  // some basic API tests
-  describe('Q required API', () => {
+  describe('basic routes', () => {
+    it('starts the server', () => {
+      expect(server.info.port).to.be.equal(3000);
+    });
+  
+    it('is healthy', async () => {
+      const response = await server.inject('/health');
+      expect(response.payload).to.be.equal('ok');
+    });
+  });
 
-    it('should return 200 for /schema.json', async () => {
-      const response = await server.inject('/schema.json')
+  describe('schema endpoint', () => {
+
+    it('returns 200 for /schema.json', async () => {
+      const response = await server.inject('/schema.json');
       expect(response.statusCode).to.be.equal(200);
-    })
+    });
+  
+  });
 
-    it('should return 200 for /stylesheet/default.123.css', async () => {
-      const response = await server.inject('/stylesheet/default.123.css') 
+  describe('stylesheet endpoint', () => {
+    
+    it('returns 200 for /stylesheet/default.123.css', async () => {
+      const response = await server.inject('/stylesheet/default.123.css')
       expect(response.statusCode).to.be.equal(200);
-    })
-
-    it('should return 404 for inexistent stylesheet', async () => {
-      const response = await server.inject('/stylesheet/inexisting.123.css');
+    });
+  
+    it('returns 404 for inexistent stylesheet', async () => {
+      const response = await server.inject('/stylesheet/inexisting.123.css')
       expect(response.statusCode).to.be.equal(404);
-    })
-
+    });
+  
   });
 
   const mockData = require('../resources/fixtures/data/mixed-3-5-sorted.json');
 
-  describe('rendering-info endpoints', () => {
+  describe('rendering-info endpoint', () => {
 
     it('should return 200 for /rendering-info/html-static', async () => {
       const request = {
@@ -44,6 +58,30 @@ async function start() {
       };
       const response = await server.inject(request);
       expect(response.statusCode).to.be.equal(200);
+    })
+  });
+
+  describe('migration endpoint', () => {
+    
+    it('returns 304 for /migration', async () => {
+      const request = {
+        method: 'POST',
+        url: '/migration',
+        payload: { 
+          item: mockData
+        }
+      };
+      const response = await server.inject(request);
+      expect(response.statusCode).to.be.equal(304);
+    });
+  
+  });
+
+  describe('fixture data endpoint', () => {
+    it('returns 4 fixture data items for /fixtures/data', async () => {
+      const response = await server.inject('/fixtures/data');
+      expect(response.statusCode).to.be.equal(200);
+      expect(response.result.length).to.be.equal(4);
     })
   });
 }

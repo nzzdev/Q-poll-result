@@ -1,4 +1,5 @@
 module.exports = [
+  require('./health.js'),
   require('./rendering-info/html-static.js'),
   require('./stylesheet.js'),
   require('./schema.js'),
