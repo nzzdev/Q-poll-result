@@ -1,7 +1,7 @@
 const JsDom = require('jsdom');
 const expect = require('chai').expect;
 
-let mockData = require('./resources/mock-data');
+let mockData = require('../resources/fixtures/data/mixed-3-5-sorted.json');
 let renderingData = {
   item: mockData,
   pollTypeInfos: require('../resources/helpers/pollTypeInfos.js')
