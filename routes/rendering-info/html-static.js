@@ -1,51 +1,53 @@
-const fs = require('fs');
-const Enjoi = require('enjoi');
-const Joi = require('joi');
-const resourcesDir = __dirname + '/../../resources/';
-const viewsDir = __dirname + '/../../views/';
+const fs = require("fs");
+const Enjoi = require("enjoi");
+const Joi = require("joi");
+const resourcesDir = __dirname + "/../../resources/";
+const viewsDir = __dirname + "/../../views/";
 
 const styleHashMap = require(__dirname + `/../../styles/hashMap.json`);
 
-const pollTypeInfos = require(resourcesDir + '/helpers/pollTypeInfos.js');
-const schemaString = JSON.parse(fs.readFileSync(resourcesDir + 'schema.json', {
-	encoding: 'utf-8'
-}));
+const pollTypeInfos = require(resourcesDir + "/helpers/pollTypeInfos.js");
+const schemaString = JSON.parse(
+  fs.readFileSync(resourcesDir + "schema.json", {
+    encoding: "utf-8"
+  })
+);
 
 const schema = Enjoi(schemaString);
 
-require('svelte/ssr/register');
-const staticTemplate = require(viewsDir + 'HtmlStatic.html');
+require("svelte/ssr/register");
+const staticTemplate = require(viewsDir + "HtmlStatic.html");
 
 module.exports = {
-	method: 'POST',
-	path: '/rendering-info/html-static',
-	options: {
-		validate: {
+  method: "POST",
+  path: "/rendering-info/html-static",
+  options: {
+    validate: {
       options: {
         allowUnknown: true
       },
-			payload: {
-				item: schema,
+      payload: {
+        item: schema,
         toolRuntimeConfig: Joi.object()
-			}
-		},
-		cache: false, // do not send cache control header to let it be added by Q Server
+      }
+    },
+    cache: false, // do not send cache control header to let it be added by Q Server
     cors: true
-	},
-	handler: function(request, h) {
+  },
+  handler: function(request, h) {
     let renderingData = {
       item: request.payload.item,
       pollTypeInfos: pollTypeInfos
-    }
-    
-		let data = {
-			stylesheets: [
-				{
-					name: styleHashMap.default
-				}
-			], 
-			markup: staticTemplate.render(renderingData)
-		}
-		return data;
-	}
-}
+    };
+
+    let data = {
+      stylesheets: [
+        {
+          name: styleHashMap.default
+        }
+      ],
+      markup: staticTemplate.render(renderingData)
+    };
+    return data;
+  }
+};
