@@ -1,4 +1,4 @@
-const fixtureDataDirectory = '../../resources/fixtures/data';
+const fixtureDataDirectory = "../../resources/fixtures/data";
 
 // provide every fixture data file present in ../../resources/fixtures/data
 const fixtureData = [
@@ -6,16 +6,17 @@ const fixtureData = [
   require(`${fixtureDataDirectory}/only-3-not-sorted.json`),
   require(`${fixtureDataDirectory}/only-5-not-sorted.json`),
   require(`${fixtureDataDirectory}/only-3-not-sorted-one-not-100.json`),
+  require(`${fixtureDataDirectory}/only-5-small-values`)
 ];
 
 module.exports = {
-  path: '/fixtures/data',
-  method: 'GET',
+  path: "/fixtures/data",
+  method: "GET",
   config: {
-    tags: ['api'],
+    tags: ["api"],
     cors: true
   },
   handler: (request, h) => {
     return fixtureData;
   }
-}
+};
