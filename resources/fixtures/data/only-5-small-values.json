@@ -1,5 +1,5 @@
 {
-  "title": "FIXTURE: only 5 positions - not sorted by date",
+  "title": "FIXTURE: only 5 positions - small values",
   "polls": [
     {
       "type": "preVoteNoToYes5",
