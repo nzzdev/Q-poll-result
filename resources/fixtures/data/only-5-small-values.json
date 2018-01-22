@@ -5,33 +5,33 @@
       "type": "preVoteNoToYes5",
       "date": "2016-05-25",
       "answers": {
-        "certain-yes": 22,
-        "rather-yes": 18,
-        "undecided": 11,
-        "rather-no": 17,
-        "certain-no": 32
+        "certain-yes": 60,
+        "rather-yes": 4,
+        "undecided": 4,
+        "rather-no": 4,
+        "certain-no": 28
       }
     },
     {
       "type": "preVoteNoToYes5",
       "date": "2016-04-29",
       "answers": {
-        "certain-yes": 21,
-        "rather-yes": 21,
-        "undecided": 11,
-        "rather-no": 19,
-        "certain-no": 28
+        "certain-yes": 60,
+        "rather-yes": 5,
+        "undecided": 5,
+        "rather-no": 6,
+        "certain-no": 24
       }
     },
     {
       "type": "preVoteNoToYes5",
       "date": "2016-06-25",
       "answers": {
-        "certain-yes": 22,
-        "rather-yes": 18,
-        "undecided": 11,
-        "rather-no": 17,
-        "certain-no": 32
+        "certain-yes": 4,
+        "rather-yes": 5,
+        "undecided": 6,
+        "rather-no": 50,
+        "certain-no": 35
       }
     }
   ],
