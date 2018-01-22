@@ -1,21 +1,17 @@
 <div class="q-poll-result-poll {{pollResult.cssClass}}">
   <h3 class="s-font-note s-font-note--strong">
-    {{#if index === 0}}
-      Aktuelle
-    {{else}}
-      {{numberPolls - index}}.
-    {{/if}}
-    Umfrage vom {{pollDate}}
+    {{#if index === 0}} Aktuelle {{else}} {{numberPolls - index}}. {{/if}} Umfrage vom {{pollDate}}
   </h3>
   <!-- if the poll type differs from the top most poll type, show legend of this poll type -->
   {{#if topPollType !== pollType}}
-    <Legend answers='{{pollAnswers}}' />
-  {{/if}}
+  <Legend answers='{{pollAnswers}}' /> {{/if}}
   <div class="q-poll-result-arrow"></div>
   {{#each pollResult.answers as answer}}
-    <div class="q-poll-result-bar {{answer.cssClass}}" style="width: {{answer.value}}%;">
-      <span class="s-font-note-s">{{answer.value}}%</span>
-    </div>
+  <div class="q-poll-result-bar {{answer.cssClass}}" style="width: {{answer.value}}%;">
+    {{#if answer.isLabeled}}
+    <span class="s-font-note-s">{{answer.value}}{{#if answer.hasPercentageSign}}%{{/if}}</span>
+    {{/if}}
+  </div>
   {{/each}}
 </div>
 
@@ -46,4 +42,3 @@
     }
   };
 </script>
-

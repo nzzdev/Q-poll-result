@@ -1,46 +1,48 @@
 {
-  "title": "FIXTURE: 3 and 5 positions - sorted by date",
+  "title": "FIXTURE: only 5 positions - small values",
   "polls": [
     {
       "type": "preVoteNoToYes5",
-      "date": "2016-04-29",
+      "date": "2016-05-25",
       "answers": {
-        "certain-yes": 21,
-        "rather-yes": 21,
-        "undecided": 11,
-        "rather-no": 19,
+        "certain-yes": 60,
+        "rather-yes": 4,
+        "undecided": 4,
+        "rather-no": 4,
         "certain-no": 28
       }
     },
     {
       "type": "preVoteNoToYes5",
-      "date": "2016-05-25",
+      "date": "2016-04-29",
       "answers": {
-        "certain-yes": 22,
-        "rather-yes": 18,
-        "undecided": 11,
-        "rather-no": 17,
-        "certain-no": 32
-      }
-    },
-    {
-      "type": "preVoteNoToYes3",
-      "date": "2016-06-25",
-      "answers": {
-        "yes": 22,
-        "undecided": 11,
-        "no": 67
+        "certain-yes": 60,
+        "rather-yes": 4,
+        "undecided": 6,
+        "rather-no": 6,
+        "certain-no": 24
       }
     },
     {
       "type": "preVoteNoToYes5",
-      "date": "2016-05-20",
+      "date": "2016-06-25",
       "answers": {
-        "certain-yes": 22,
-        "rather-yes": 18,
-        "undecided": 11,
-        "rather-no": 17,
-        "certain-no": 32
+        "certain-yes": 4,
+        "rather-yes": 5,
+        "undecided": 6,
+        "rather-no": 50,
+        "certain-no": 35
+      }
+    },
+    {
+      "type": "preVoteNoToYes5",
+      "date": "2016-07-25",
+      "answers": {
+        "certain-yes": 60,
+        "rather-yes": 4,
+        "undecided": 6,
+        "rather-no": 3,
+        "certain-no": 28
       }
     }
   ],

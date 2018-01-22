@@ -17,8 +17,8 @@
       },
       "items": {
         "oneOf": [
-          {"$ref": "#/definitions/preVoteNoToYes5"},
-          {"$ref": "#/definitions/preVoteNoToYes3"}
+          { "$ref": "#/definitions/preVoteNoToYes5" },
+          { "$ref": "#/definitions/preVoteNoToYes3" }
         ]
       }
     },
@@ -56,9 +56,7 @@
       }
     }
   },
-  "required": [
-    "title"
-  ],
+  "required": ["title"],
   "definitions": {
     "preVoteNoToYes5": {
       "type": "object",
