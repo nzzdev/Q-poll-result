@@ -54,6 +54,16 @@
               answer.cssClass = answerInfos.cssClass;
               return answer;
             });
+          transformedAnswers.forEach((answer, index) => {
+            answer.isLabeled = true;
+            if (answer.value < 5) {
+              // if this value and one of the adjacent values is small do not label with percentage number
+              if ((transformedAnswers[index - 1] && transformedAnswers[index - 1].value < 5)
+                || (transformedAnswers[index + 1] && transformedAnswers[index + 1].value < 5)) {
+                answer.isLabeled = false;
+              }
+            }
+          })
           poll.answers = transformedAnswers;
         })
 

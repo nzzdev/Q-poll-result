@@ -8,7 +8,7 @@
   <div class="q-poll-result-arrow"></div>
   {{#each pollResult.answers as answer}}
   <div class="q-poll-result-bar {{answer.cssClass}}" style="width: {{answer.value}}%;">
-    {{#if answer.value >= 5}}
+    {{#if answer.isLabeled}}
     <span class="s-font-note-s">{{answer.value}}%</span>
     {{/if}}
   </div>
