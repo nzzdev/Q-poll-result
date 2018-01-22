@@ -17,8 +17,8 @@
       "date": "2016-04-29",
       "answers": {
         "certain-yes": 60,
-        "rather-yes": 5,
-        "undecided": 5,
+        "rather-yes": 4,
+        "undecided": 6,
         "rather-no": 6,
         "certain-no": 24
       }
@@ -32,6 +32,17 @@
         "undecided": 6,
         "rather-no": 50,
         "certain-no": 35
+      }
+    },
+    {
+      "type": "preVoteNoToYes5",
+      "date": "2016-07-25",
+      "answers": {
+        "certain-yes": 60,
+        "rather-yes": 4,
+        "undecided": 6,
+        "rather-no": 3,
+        "certain-no": 28
       }
     }
   ],

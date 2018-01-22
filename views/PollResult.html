@@ -9,7 +9,7 @@
   {{#each pollResult.answers as answer}}
   <div class="q-poll-result-bar {{answer.cssClass}}" style="width: {{answer.value}}%;">
     {{#if answer.isLabeled}}
-    <span class="s-font-note-s">{{answer.value}}%</span>
+    <span class="s-font-note-s">{{answer.value}}{{#if answer.hasPercentageSign}}%{{/if}}</span>
     {{/if}}
   </div>
   {{/each}}

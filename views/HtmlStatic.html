@@ -56,11 +56,19 @@
             });
           transformedAnswers.forEach((answer, index) => {
             answer.isLabeled = true;
+            answer.hasPercentageSign = true;
+            // if this value and one of the adjacent values is smaller than 5 do not display a label 
             if (answer.value < 5) {
-              // if this value and one of the adjacent values is small do not label with percentage number
               if ((transformedAnswers[index - 1] && transformedAnswers[index - 1].value < 5)
                 || (transformedAnswers[index + 1] && transformedAnswers[index + 1].value < 5)) {
                 answer.isLabeled = false;
+              }
+            }
+            // if this value and one of the adjacent values is smaller than 8 do not display the percentage sign
+            if (answer.value < 8) {
+              if ((transformedAnswers[index - 1] && transformedAnswers[index - 1].value < 8)
+                || (transformedAnswers[index + 1] && transformedAnswers[index + 1].value < 8)) {
+                answer.hasPercentageSign = false;
               }
             }
           })
