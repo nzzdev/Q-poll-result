@@ -1,5 +1,6 @@
 {
-  "title": "FIXTURE: only 3 positions - not sorted by date",
+  "title":
+    "FIXTURE: only 3 positions - not sorted by date - missing url in source",
   "polls": [
     {
       "type": "preVoteNoToYes3",
@@ -35,7 +36,6 @@
     {
       "text": "NZZ Storytelling",
       "link": {
-        "url": "https://nzz.ch/storytelling",
         "isValid": true
       }
     }
