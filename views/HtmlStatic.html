@@ -1,5 +1,9 @@
 <div class="q-item-container s-q-item">
-  <Header title='{{item.title}}' /> {{#if hasCompletePolls}}
+  <Header title='{{item.title}}' /> 
+  {{#if item.subtitle && item.subtitle !== '' }}
+    <div class="q-poll-result-subtitle s-font-note">{{ item.subtitle }}</div>
+  {{/if}}
+  {{#if hasCompletePolls}}
   <Legend answers='{{topPollAnswers}}' />
   <div class="q-poll-result-polls">
     {{#each filteredAndSortedPollResults as pollResult, index}}
