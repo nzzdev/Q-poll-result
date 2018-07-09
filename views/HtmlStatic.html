@@ -1,7 +1,7 @@
 <div class="q-item-container s-q-item">
   <Header title='{{item.title}}' /> 
   {{#if item.subtitle && item.subtitle !== '' }}
-    <div class="q-poll-result-subtitle s-font-note">{{ item.subtitle }}</div>
+    <div class="s-q-item__subtitle s-font-note">{{ item.subtitle }}</div>
   {{/if}}
   {{#if hasCompletePolls}}
   <Legend answers='{{topPollAnswers}}' />
