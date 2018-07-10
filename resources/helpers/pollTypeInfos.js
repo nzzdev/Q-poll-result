@@ -4,28 +4,27 @@ module.exports = {
       {
         name: "certain-yes",
         label: "bestimmt dafür",
-        cssClass: "s-viz-color-diverging-6-6"
+        cssClass: "s-viz-color-diverging-one-5-5"
       },
       {
         name: "rather-yes",
         label: "eher dafür",
-        cssClass: "s-viz-color-diverging-6-4"
+        cssClass: "s-viz-color-diverging-one-5-4"
       },
       {
         name: "undecided",
         label: "weiss nicht",
-        cssClass:
-          "q-poll-result-bar--undecided q-poll-result-legend-item--undecided"
+        cssClass: "s-viz-color-diverging-one-5-3"
       },
       {
         name: "rather-no",
         label: "eher dagegen",
-        cssClass: "s-viz-color-diverging-6-3"
+        cssClass: "s-viz-color-diverging-one-5-2"
       },
       {
         name: "certain-no",
         label: "bestimmt dagegen",
-        cssClass: "s-viz-color-diverging-6-1"
+        cssClass: "s-viz-color-diverging-one-5-1"
       }
     ]
   },
@@ -34,18 +33,17 @@ module.exports = {
       {
         name: "yes",
         label: "bestimmt/eher dafür",
-        cssClass: "s-viz-color-diverging-6-5"
+        cssClass: "s-viz-color-diverging-one-3-3"
       },
       {
         name: "undecided",
         label: "weiss nicht",
-        cssClass:
-          "q-poll-result-bar--undecided q-poll-result-legend-item--undecided"
+        cssClass: "s-viz-color-diverging-one-3-2"
       },
       {
         name: "no",
         label: "bestimmt/eher dagegen",
-        cssClass: "s-viz-color-diverging-6-2"
+        cssClass: "s-viz-color-diverging-one-3-1"
       }
     ]
   }
