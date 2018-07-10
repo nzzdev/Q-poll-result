@@ -48,7 +48,8 @@ async function start() {
         method: "POST",
         url: "/rendering-info/html-static",
         payload: {
-          item: mockData
+          item: mockData,
+          toolRuntimeConfig: {}
         }
       };
       const response = await server.inject(request);

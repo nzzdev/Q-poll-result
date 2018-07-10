@@ -7,7 +7,7 @@ const postcssImport = require("postcss-import");
 const autoprefixer = require("autoprefixer");
 const cssnano = require("cssnano");
 
-const stylesDir = __dirname + "/../styles_src/";
+const stylesDir = `${__dirname}/../styles_src/`;
 
 function writeHashmap(hashmapPath, files, fileext) {
   const hashMap = {};
