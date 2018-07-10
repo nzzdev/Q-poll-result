@@ -5,7 +5,17 @@
   "properties": {
     "title": {
       "title": "Titel",
-      "type": "string"
+      "type": "string",
+      "Q:options": {
+        "placeholder": "Der Titel bringt die Kernaussage der Umfrageresultate auf den Punkt&#46;"
+      }
+    },
+    "subtitle": {
+      "title": "Untertitel",
+      "type": "string",
+      "Q:options": {
+        "placeholder": "Stimmabsichten zur XY-Vorlage"
+      }
     },
     "polls": {
       "title": "Umfragen",
@@ -41,6 +51,9 @@
             "Q:type": "link",
             "title": "Link",
             "type": "object",
+            "Q:options": {
+              "placeholder": "Direktlink zur Quelle, http&#53;//&#46;&#46;&#46;"
+            },
             "properties": {
               "url": {
                 "title": "Url",
