@@ -7,7 +7,8 @@
       "title": "Titel",
       "type": "string",
       "Q:options": {
-        "placeholder": "Der Titel bringt die Kernaussage der Umfrageresultate auf den Punkt&#46;"
+        "placeholder":
+          "Der Titel bringt die Kernaussage der Umfrageresultate auf den Punkt&#46;"
       }
     },
     "subtitle": {
