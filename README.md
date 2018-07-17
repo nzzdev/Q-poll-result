@@ -18,6 +18,7 @@ The tool is designed specifically for poll results in Switzerland which are done
 ![Poll result with five answer scale](./readme-images/five-answer-poll.png)
 
 The scales can also be mixed together:
+
 ![Poll result with mixed answer scales](./readme-images/mixed-scale-poll.png)
 
 
