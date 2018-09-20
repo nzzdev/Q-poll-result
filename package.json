@@ -1,6 +1,6 @@
 {
   "name": "@nzz/q-poll-result",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Q poll result",
   "keywords": [
     "storytelling",
@@ -45,12 +45,12 @@
     "chai": "^4.1.2",
     "cssnano": "^3.10.0",
     "forever": "^0.15.3",
-    "hapi": "^17.5.2",
+    "hapi": "^17.5.4",
     "inert": "^5.1.0",
-    "joi": "^13.4.0",
+    "joi": "^13.6.0",
     "jsdom": "^9.12.0",
     "mocha": "^4.1.0",
-    "node-sass": "^4.9.2",
+    "node-sass": "^4.9.3",
     "postcss-import": "^11.1.0",
     "svelte": "1.22.3"
   }
