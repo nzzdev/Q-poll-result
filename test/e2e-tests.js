@@ -1,7 +1,6 @@
 const Lab = require("lab");
 const Code = require("code");
 const Hapi = require("hapi");
-const plugins = require("../server-plugins.js");
 const lab = (exports.lab = Lab.script());
 
 const expect = Code.expect;
@@ -10,6 +9,7 @@ const after = lab.after;
 const it = lab.it;
 
 const routes = require("../routes/routes.js");
+const plugins = require("../server-plugins.js");
 
 let server;
 
