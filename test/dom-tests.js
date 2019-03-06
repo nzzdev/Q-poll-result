@@ -11,9 +11,6 @@ const after = lab.after;
 const it = lab.it;
 
 const routes = require("../routes/routes.js");
-require("svelte/ssr/register");
-const staticTpl = require("../views/HtmlStatic.html");
-
 let server;
 
 before(async () => {
@@ -49,28 +46,45 @@ function elementCount(markup, selector) {
   });
 }
 
-lab.experiment("Q poll result dom tests", function() {
+lab.experiment("dom tests", function() {
   it("should pass if at least one legend is found", async () => {
-    const renderingData = {
-      item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
-      pollTypeInfos: require("../resources/helpers/pollTypeInfos.js")
-    };
-    var markup = staticTpl.render(JSON.parse(JSON.stringify(renderingData)));
-    return elementCount(markup, "ul.q-poll-result-legend").then(value => {
-      expect(value).to.be.greaterThan(0);
+    const response = await server.inject({
+      url: "/rendering-info/html-static?_id=someid",
+      method: "POST",
+      payload: {
+        item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
+        pollTypeInfos: require("../resources/helpers/pollTypeInfos.js"),
+        toolRuntimeConfig: {
+          displayOptions: {}
+        }
+      }
     });
+
+    return elementCount(response.result.markup, "ul.q-poll-result-legend").then(
+      value => {
+        expect(value).to.be.greaterThan(0);
+      }
+    );
   });
 
   it("should pass if exactly one current result bar is found", async () => {
-    const renderingData = {
-      item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
-      pollTypeInfos: require("../resources/helpers/pollTypeInfos.js")
-    };
-    var markup = staticTpl.render(JSON.parse(JSON.stringify(renderingData)));
-    return elementCount(markup, "div.q-poll-result-poll--current").then(
-      value => {
-        expect(value).to.be.equal(1);
+    const response = await server.inject({
+      url: "/rendering-info/html-static?_id=someid",
+      method: "POST",
+      payload: {
+        item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
+        pollTypeInfos: require("../resources/helpers/pollTypeInfos.js"),
+        toolRuntimeConfig: {
+          displayOptions: {}
+        }
       }
-    );
+    });
+
+    return elementCount(
+      response.result.markup,
+      "div.q-poll-result-poll--current"
+    ).then(value => {
+      expect(value).to.be.equal(1);
+    });
   });
 });
