@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/nzzdev/Q-poll-result/issues"
   },
-  "license": "",
+  "license": "MIT",
   "contributors": [
     {
       "name": "Beni Buess",
@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "code": "^5.2.4",
+    "glob": "^7.1.3",
     "jsdom": "^13.1.0",
     "lab": "^18.0.1"
   }
