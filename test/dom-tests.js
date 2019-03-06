@@ -39,6 +39,13 @@ function element(markup, selector) {
   });
 }
 
+function elements(markup, selector) {
+  return new Promise((resolve, reject) => {
+    const dom = new JSDOM(markup);
+    resolve(dom.window.document.querySelectorAll(selector));
+  });
+}
+
 function elementCount(markup, selector) {
   return new Promise((resolve, reject) => {
     const dom = new JSDOM(markup);
@@ -86,5 +93,46 @@ lab.experiment("dom tests", function() {
     ).then(value => {
       expect(value).to.be.equal(1);
     });
+  });
+
+  it("should pass if exactly three sub result bars are found", async () => {
+    const response = await server.inject({
+      url: "/rendering-info/html-static?_id=someid",
+      method: "POST",
+      payload: {
+        item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
+        pollTypeInfos: require("../resources/helpers/pollTypeInfos.js"),
+        toolRuntimeConfig: {
+          displayOptions: {}
+        }
+      }
+    });
+
+    return elementCount(
+      response.result.markup,
+      ".q-poll-result-poll--current > .q-poll-result-bar"
+    ).then(value => {
+      expect(value).to.be.equal(3);
+    });
+  });
+
+  it("should have a correct footer element", async () => {
+    const response = await server.inject({
+      url: "/rendering-info/html-static?_id=someid",
+      method: "POST",
+      payload: {
+        item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
+        pollTypeInfos: require("../resources/helpers/pollTypeInfos.js"),
+        toolRuntimeConfig: {
+          displayOptions: {}
+        }
+      }
+    });
+
+    return elementCount(response.result.markup, ".s-q-item__footer").then(
+      value => {
+        expect(value).to.be.equal(1);
+      }
+    );
   });
 });
