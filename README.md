@@ -77,6 +77,10 @@ The scales can also be mixed together:
 
 [to the top](#table-of-contents)
 
+### Implementation
+
+The tool uses the [svelte framework](https://svelte.technology/guide) to render the markup on server-side.
+
 ## License
 Copyright (c) 2019 Neue Zürcher Zeitung. All rights reserved.
 
