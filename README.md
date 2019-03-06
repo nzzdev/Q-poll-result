@@ -68,6 +68,22 @@ When changing or implementing...
 
 [to the top](#table-of-contents)
 
+## Deployment
+
+We provide automatically built docker images at https://hub.docker.com/r/nzzonline/q-poll-result/.
+There are three options for deployment:
+
+- use the provided images
+- build your own docker images
+- deploy the service using another technology
+
+### Use the provided docker images
+
+1. Deploy `nzzonline/q-poll-result` to a docker environment
+2. Set the ENV variables as described in the [configuration section](#configuration)
+
+[to the top](#table-of-contents)
+
 ## Functionality
 
 The tool structure follows the general structure of each Q tool. Further information can be found in [Q server documentation - Developing tools](https://nzzdev.github.io/Q-server/developing-tools.html).
