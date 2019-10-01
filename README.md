@@ -110,7 +110,7 @@ The tool uses the [svelte framework](https://svelte.technology/guide) to render 
 
 ### Options
 
-There are on options for this tool.
+There are no options for this tool.
 
 [to the top](#table-of-contents)
 
