@@ -6,7 +6,8 @@ const fixtureData = [
   require(`${fixtureDataDirectory}/only-3-not-sorted-missing-url.json`),
   require(`${fixtureDataDirectory}/only-5-not-sorted.json`),
   require(`${fixtureDataDirectory}/only-3-not-sorted-one-not-100.json`),
-  require(`${fixtureDataDirectory}/only-5-small-values`)
+  require(`${fixtureDataDirectory}/only-5-small-values.json`),
+  require(`${fixtureDataDirectory}/spacing-text.json`)
 ];
 
 module.exports = {
