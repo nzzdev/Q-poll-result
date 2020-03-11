@@ -1,0 +1,35 @@
+{
+  "title": "FIXTURE: spacings",
+  "polls": [
+    {
+      "type": "preVoteNoToYes5",
+      "answers": {
+        "certain-yes": 50,
+        "rather-yes": 16,
+        "undecided": 1,
+        "rather-no": 8,
+        "certain-no": 25
+      },
+      "date": "2019-03-29"
+    },
+    {
+      "type": "preVoteNoToYes5",
+      "answers": {
+        "certain-yes": 52,
+        "rather-yes": 13,
+        "undecided": 1,
+        "rather-no": 8,
+        "certain-no": 26
+      },
+      "date": "2019-04-27"
+    }
+  ],
+  "sources": [
+    {
+      "link": {},
+      "text": "SRG-Trend / GfS Bern"
+    }
+  ],
+  "subtitle": "Trendumfrage des Forschungsinstituts GfS Bern zur neuen EU-Waffenrichtlinie",
+  "notes": "Abstimmung vom 19. Mai 2019 im Trend, 1. Welle, 25. März bis 4. April 2019 (n = 5015). 2. Welle, 23. April bis 30. April 2019 (n = 5817). Der statistische Fehlerbereich beträgt ±2,7 Prozentpunkte."
+}
