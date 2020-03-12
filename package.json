@@ -1,6 +1,6 @@
 {
   "name": "@nzz/q-poll-result",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Q poll result",
   "keywords": [
     "storytelling",
@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/nzzdev/Q-poll-result/issues"
   },
-  "license": "",
+  "license": "MIT",
   "contributors": [
     {
       "name": "Beni Buess",
@@ -32,26 +32,29 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf styles && mkdir styles && node tasks/build.js",
-    "test": "./node_modules/mocha/bin/mocha --exit"
+    "test": "lab -a @hapi/code -c -P tests --verbose --leaks"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nzzdev/Q-poll-result.git"
   },
   "dependencies": {
-    "ajv": "^5.5.2",
-    "autoprefixer": "^7.2.6",
-    "boom": "^7.2.0",
-    "chai": "^4.1.2",
-    "cssnano": "^3.10.0",
-    "forever": "^0.15.3",
-    "hapi": "^17.5.4",
-    "inert": "^5.1.0",
-    "joi": "^13.6.0",
-    "jsdom": "^9.12.0",
-    "mocha": "^4.1.0",
-    "node-sass": "^4.9.3",
-    "postcss-import": "^11.1.0",
+    "@hapi/boom": "^7.4.11",
+    "@hapi/hapi": "^18.4.1",
+    "@hapi/inert": "^5.2.2",
+    "@hapi/joi": "^15.1.1",
+    "ajv": "^6.12.0",
     "svelte": "1.22.3"
+  },
+  "devDependencies": {
+    "@hapi/code": "^5.3.1",
+    "@hapi/lab": "^18.1.2",
+    "autoprefixer": "^9.7.4",
+    "cssnano": "^4.1.10",
+    "glob": "^7.1.6",
+    "jsdom": "^14.1.0",
+    "postcss": "^7.0.27",
+    "postcss-import": "^12.0.1",
+    "sass": "^1.26.2"
   }
 }

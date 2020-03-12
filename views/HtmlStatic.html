@@ -69,9 +69,9 @@
               }
             }
             // if this value and one of the adjacent values is smaller than 8 do not display the percentage sign
-            if (answer.value < 8) {
-              if ((transformedAnswers[index - 1] && transformedAnswers[index - 1].value < 8)
-                || (transformedAnswers[index + 1] && transformedAnswers[index + 1].value < 8)) {
+            if (answer.value < 11) {
+              if ((transformedAnswers[index - 1] && transformedAnswers[index - 1].value < 11)
+                || (transformedAnswers[index + 1] && transformedAnswers[index + 1].value < 11)) {
                 answer.hasPercentageSign = false;
               }
             }

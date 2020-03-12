@@ -1,28 +1,24 @@
 dist: trusty
 sudo: true
 services:
-- docker
+  - docker
 language: node_js
 node_js:
-- '10'
-install:
-- npm install
-before_script:
-- DOCKER_IMAGE_NAME="q-poll-result"
-- DOCKER_TAG=$TRAVIS_BRANCH
-script:
-- npm run build
-- npm test
-- docker build -t $DOCKER_IMAGE_NAME:$DOCKER_TAG .
-- echo $DOCKER_PASSWORD | docker login -u="$DOCKER_USERNAME" --password-stdin; docker tag $DOCKER_IMAGE_NAME:$DOCKER_TAG
-  nzzonline/$DOCKER_IMAGE_NAME:$DOCKER_TAG; docker push nzzonline/$DOCKER_IMAGE_NAME:$DOCKER_TAG;
-- if [ $TRAVIS_BRANCH == "staging" ] && [ $TRAVIS_PULL_REQUEST == "false" ]; then docker run --rm -it -e RANCHER_URL -e     
-  CATTLE_ACCESS_KEY -e CATTLE_SECRET_KEY etlweather/gaucho upgrade $RANCHER_SERVICE_ID_STAGING 
-  --auto_complete --start_first --imageUuid="docker:nzzonline/$DOCKER_IMAGE_NAME:$DOCKER_TAG" || true;
-  fi
+  - "10"
 cache:
   directories:
-  - node_modules
+    - node_modules
+install:
+  - npm install
+before_script:
+  - DOCKER_IMAGE_NAME="q-poll-result"
+  - DOCKER_TAG=${TRAVIS_BRANCH//[^a-zA-Z0-9\_\-\.]/_}
+script:
+  - npm run build
+  - npm run test
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker build -t $DOCKER_IMAGE_NAME:$DOCKER_TAG .; fi'
+after_success:
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then echo $DOCKER_PASSWORD | docker login -u="$DOCKER_USERNAME" --password-stdin; docker tag $DOCKER_IMAGE_NAME:$DOCKER_TAG nzzonline/$DOCKER_IMAGE_NAME:$DOCKER_TAG; docker push nzzonline/$DOCKER_IMAGE_NAME:$DOCKER_TAG; fi'
 notifications:
   slack:
-    secure: j7hGcpNDRisdFB+i9KAnBWGIBTf6EVz6tUl/s5gS/uOgtngRfnS1cAupAXNed9PXetEi73m0NDVd5IDilTStOV+DghRIZ686PqiaSu+lc4t0e5rW5qHmObeLfkisbygz9wqUhoH4AbAiF+wKkQYO20j8Xz9ahD3K8o4LF5GYR56BCiqyH0f0tfiZokHnowdDkuM1rKPiRAqpao4D1OlC10cWlZ0KHgqz8TM5OaODKgva64RG1OiJytUDJ3hajTVUN9JejssaQodnrvXG4szcTlGfov8OyX3ciyvweRRjXzqzW2VRqBFHVLU2gWnEMaSpT3obvdtEhj8Cykh1ZpjFEaSdrlH7i9oNdniCmOEFuwLSOM1BfxobAbL20xGZjibY3v5y8YW16wzEKYslCzzwNRF5ijWaSTRXvK7iC46n8PTZynpxY8DOtmUDsiiGubB8546u8v1fjMiUicD0w3JQdpFYZkVmg/RUDymmopReQmfrlX7zvesYNuDTz+DnG0B/MywUkNZTJTN7z6/Ci0YxxLIzcHA8EApdUtYUwQyNCNxHRrgnyaaNpPOsaHfhgTybKZeSX5luvn2uJct7LJkw4QFu8mA42jeFzOLKGzyRikPpI8t9W7TRZcc/HsGoEg8YUMWAC2KXSmw8HBlnCp1QYy4J1WwbVT1rYHEjPFBe9Tk=
+    secure: MIYW+UQYrL+/XUnDdNAYUy7q0KdNd1bit2mVZ2gt/vZS7Z/myv8n7gye9JGdPPRBIoMtuKGsfkDbf+irXvD5weEzEn5MPczvQO0EglunDLI18veao9FiXsb1X3zdahNq5g2aZmwhbJOG8W4oDhcXDYFUxGsfFrHAB4cA+uRH3ONmJbnHm6HdATD9t4UryzCpthHFiSk3a5/qbiXWofQlxUDY9dK8IWTOiIpHxoWhdxuBI8X/UVqDGs2GmG4di4PL2cOnjDOEEtReLUW8W9tZWKKsm+aoiHuHardLzBv2e24DLmzOvWlIENqUmqqRDIhLD3HjExt0N6Sam6PA8Bf/1vMppNXvqU0JiOwPHNTxGPlm6o+vwSwAFAt22+wFSmGF7bbo7NoM/hDbnf+LXHtg6jr3Qej0zJK2mVdy2Ofg6ghpUCjLCyLgz8TWE2bURZpG6x42jc4Gix4m+cAnfgG2Dk97H9YY2T4uerwLjswwcZ08XhgdzymKve9lQgmaesGJoqHq7+aUS0sXNhG3wAZWJlGozQLGP3bhK0rNKvLyqw3i12RGc+zNAm1zdq03F70j3J46PAJpYlI62jMpFy/mCNP5ixqmQrT3nh9u83cQ3VCd6fJU73PSL+l0/YGo1mWjMJZ2+DsiT7lUJvVBQyQtG5HyorISTJdNkYJPknAHngI=
