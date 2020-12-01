@@ -1,6 +1,6 @@
 # Q Poll Result [![Build Status](https://travis-ci.com/nzzdev/Q-poll-result.svg?token=bwR7zbPTTpEoDxbY2dJR&branch=dev)](https://travis-ci.com/nzzdev/Q-poll-result)
 
-**Maintainer**: [romankaravia](https://github.com/romankaravia)
+**Maintainer**: [philipkueng](https://github.com/philipkueng)
 
 Q Poll Result is one tool of the Q toolbox to render poll results.
 Test it in the [demo](https://editor.q.tools).
