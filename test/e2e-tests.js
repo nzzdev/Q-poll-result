@@ -19,8 +19,8 @@ before(async () => {
     server = Hapi.server({
       port: process.env.PORT || 3000,
       routes: {
-        cors: true
-      }
+        cors: true,
+      },
     });
     server.register(plugins);
     server.route(routes);
@@ -56,7 +56,7 @@ lab.experiment("locales endpoint", () => {
   it("returns 200 for en translations", async () => {
     const request = {
       method: "GET",
-      url: "/locales/en/translation.json"
+      url: "/locales/en/translation.json",
     };
     const response = await server.inject(request);
     expect(response.statusCode).to.be.equal(200);
@@ -64,7 +64,7 @@ lab.experiment("locales endpoint", () => {
   it("returns 200 for fr translations", async () => {
     const request = {
       method: "GET",
-      url: "/locales/fr/translation.json"
+      url: "/locales/fr/translation.json",
     };
     const response = await server.inject(request);
     expect(response.statusCode).to.be.equal(200);
@@ -99,9 +99,9 @@ lab.experiment("rendering-info endpoint", () => {
       payload: {
         item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
         toolRuntimeConfig: {
-          displayOptions: {}
-        }
-      }
+          displayOptions: {},
+        },
+      },
     };
     const response = await server.inject(request);
     expect(response.statusCode).to.be.equal(200);
@@ -114,8 +114,8 @@ lab.experiment("migration endpoint", () => {
       method: "POST",
       url: "/migration",
       payload: {
-        item: require("../resources/fixtures/data/mixed-3-5-sorted.json")
-      }
+        item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
+      },
     };
     const response = await server.inject(request);
     expect(response.statusCode).to.be.equal(304);
@@ -123,30 +123,33 @@ lab.experiment("migration endpoint", () => {
 });
 
 lab.experiment("fixture data endpoint", () => {
-  it("returns 6 fixture data items for /fixtures/data", async () => {
+  it("returns 7 fixture data items for /fixtures/data", async () => {
     const response = await server.inject("/fixtures/data");
     expect(response.statusCode).to.be.equal(200);
-    expect(response.result.length).to.be.equal(6);
+    expect(response.result.length).to.be.equal(7);
   });
 });
 
-lab.experiment("all fixtures render", async () => {
+lab.experiment("all non validation fixtures render", async () => {
   const fixtureFiles = glob.sync(
     `${__dirname}/../resources/fixtures/data/*.json`
   );
   for (let fixtureFile of fixtureFiles) {
     const fixture = require(fixtureFile);
-    it(`doesnt fail in rendering fixture ${fixture.title}`, async () => {
-      const request = {
-        method: "POST",
-        url: "/rendering-info/html-static",
-        payload: {
-          item: fixture,
-          toolRuntimeConfig: {}
-        }
-      };
-      const response = await server.inject(request);
-      expect(response.statusCode).to.be.equal(200);
-    });
+
+    if (!fixture.title.toLowerCase().includes("validation")) {
+      it(`doesnt fail in rendering fixture ${fixture.title}`, async () => {
+        const request = {
+          method: "POST",
+          url: "/rendering-info/html-static",
+          payload: {
+            item: fixture,
+            toolRuntimeConfig: {},
+          },
+        };
+        const response = await server.inject(request);
+        expect(response.statusCode).to.be.equal(200);
+      });
+    }
   }
 });
