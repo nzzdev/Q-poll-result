@@ -1,0 +1,24 @@
+{
+  "title": "FIXTURE: Validation Error Message - Over 100%",
+  "polls": [
+    {
+      "type": "preVoteNoToYes3",
+      "date": "2016-06-25",
+      "answers": {
+        "yes": 22,
+        "undecided": 11,
+        "no": 68
+      }
+    }
+  ],
+  "notes": "Bei allen ausgewiesenen Zahlen ist bei einer 95-prozentigen Wahrscheinlichkeit ein statistischer Unsicherheitsbereich von rund 2.7 Prozentpunkten plus/minus mitzudenken (2.9 bei der 1. Umfrage).",
+  "sources": [
+    {
+      "text": "NZZ Storytelling",
+      "link": {
+        "url": "https://nzz.ch/storytelling",
+        "isValid": true
+      }
+    }
+  ]
+}
