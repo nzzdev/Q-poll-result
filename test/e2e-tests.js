@@ -122,14 +122,6 @@ lab.experiment("migration endpoint", () => {
   });
 });
 
-lab.experiment("fixture data endpoint", () => {
-  it("returns 7 fixture data items for /fixtures/data", async () => {
-    const response = await server.inject("/fixtures/data");
-    expect(response.statusCode).to.be.equal(200);
-    expect(response.result.length).to.be.equal(7);
-  });
-});
-
 lab.experiment("all non validation fixtures render", async () => {
   const fixtureFiles = glob.sync(
     `${__dirname}/../resources/fixtures/data/*.json`
