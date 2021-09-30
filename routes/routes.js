@@ -5,5 +5,6 @@ module.exports = [
   require("./schema.js"),
   require("./locales.js"),
   require("./fixtures/data.js"),
-  require("./migration.js")
+  require("./migration.js"),
+  require("./notifications/pollTotalOverOneHundredPercent.js"),
 ];

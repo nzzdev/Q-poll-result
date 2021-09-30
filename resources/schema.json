@@ -23,7 +23,20 @@
       "Q:options": {
         "expandable": {
           "itemLabelProperty": "date"
-        }
+        },
+        "notificationChecks": [
+          {
+            "type": "ToolEndpoint",
+            "config": {
+              "endpoint": "notification/pollTotalOverOneHundredPercent",
+              "fields": ["polls"]
+            },
+            "priority": {
+              "type": "high",
+              "value": 0
+            }
+          }
+        ]
       },
       "items": {
         "oneOf": [
