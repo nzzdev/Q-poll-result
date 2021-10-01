@@ -7,7 +7,8 @@ const fixtureData = [
   require(`${fixtureDataDirectory}/only-5-not-sorted.json`),
   require(`${fixtureDataDirectory}/only-3-not-sorted-one-not-100.json`),
   require(`${fixtureDataDirectory}/only-5-small-values.json`),
-  require(`${fixtureDataDirectory}/spacing-text.json`)
+  require(`${fixtureDataDirectory}/spacing-text.json`),
+  require(`${fixtureDataDirectory}/validation-msg-over-100-percent.json`),
 ];
 
 module.exports = {
@@ -15,9 +16,9 @@ module.exports = {
   method: "GET",
   config: {
     tags: ["api"],
-    cors: true
+    cors: true,
   },
   handler: (request, h) => {
     return fixtureData;
-  }
+  },
 };
