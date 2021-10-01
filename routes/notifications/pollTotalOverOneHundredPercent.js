@@ -36,7 +36,7 @@ module.exports = {
             (aggregated, value) => aggregated + value
           );
 
-          if (totalVoteInPercent > 100) {
+          if (totalVoteInPercent !== 100) {
             return errorMessage;
           }
         } else {
@@ -44,7 +44,6 @@ module.exports = {
             `Unhandled preVoteNoToYes type: '${poll.type}' for validation 'pollTotalOverOneHundredPercent'.`
           );
         }
-        return null;
       }
     } catch (err) {
       return null;

@@ -25,8 +25,8 @@
   "Url": "url",
   "notifications": {
     "pollTotalOver100Percent": {
-      "title": "Résultat de l'enquête : plus de 100 %.",
-      "body": "Le total de tous les éléments d'un résultat de sondage ne doit pas être supérieur à 100 %. Veuillez vérifier à nouveau chaque résultat d'enquête."
+      "title": "Résultat de l'enquête Total pas 100",
+      "body": "Le total de tous les éléments d'un résultat d'enquête doit être exactement égal à 100 %. Veuillez vérifier à nouveau le résultat de chaque sondage."
     }
   }
 }

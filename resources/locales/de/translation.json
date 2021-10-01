@@ -1,8 +1,8 @@
 {
   "notifications": {
     "pollTotalOver100Percent": {
-      "title": "Umfrageergebnis über 100%",
-      "body": "Das Total aus allen Positionen eines Umfrageergebnis darf nicht mehr als 100% sein. Bitte überprüfe nochmals jedes Umfrageergebnis."
+      "title": "Umfrageergebnis Total nicht 100%",
+      "body": "Das Total aus allen Positionen eines Umfrageergebnis muss genau 100% sein. Bitte überprüfe nochmals jedes Umfrageergebnis."
     }
   }
 }
