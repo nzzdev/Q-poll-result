@@ -1,7 +1,7 @@
 {
   "Umfrageresultat": "poll result",
   "Titel": "title",
-  "Der Titel bringt die Kernaussage der Umfrageresultate auf den Punkt&#46;" : "the title sums up the key message of the survey results.",
+  "Der Titel bringt die Kernaussage der Umfrageresultate auf den Punkt&#46;": "the title sums up the key message of the survey results.",
   "Untertitel": "subtitle",
   "Stimmabsichten zur XY-Vorlage": "voting intentions to the XY template",
   "Umfragen": "polls",
@@ -22,5 +22,11 @@
   "Direktlink zur Quelle, http&#53;//&#46;&#46;&#46;": "direct link to the source, http://...",
   "Text": "text",
   "Link": "link",
-  "Url": "URL"
+  "Url": "URL",
+  "notifications": {
+    "pollTotalOver100Percent": {
+      "title": "Poll result not 100%",
+      "body": "A poll result total must be exactly 100%. Please check each poll for the total value."
+    }
+  }
 }
