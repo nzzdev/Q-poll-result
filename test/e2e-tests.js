@@ -23,6 +23,7 @@ before(async () => {
       },
     });
     server.register(plugins);
+    server.validator(require("joi"));
     server.route(routes);
   } catch (err) {
     expect(err).to.not.exist();
@@ -122,10 +123,11 @@ lab.experiment("migration endpoint", () => {
   });
 });
 
-lab.experiment("all non validation fixtures render", async () => {
+lab.experiment("all non validation fixtures render", () => {
   const fixtureFiles = glob.sync(
     `${__dirname}/../resources/fixtures/data/*.json`
   );
+
   for (let fixtureFile of fixtureFiles) {
     const fixture = require(fixtureFile);
 
