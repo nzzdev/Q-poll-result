@@ -47,7 +47,7 @@
     "svelte": "1.22.3"
   },
   "devDependencies": {
-    "@hapi/code": "^5.3.1",
+    "@hapi/code": "^8.0.3",
     "@hapi/lab": "^18.1.2",
     "autoprefixer": "^9.8.6",
     "cssnano": "^4.1.10",
