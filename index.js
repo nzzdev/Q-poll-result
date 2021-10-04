@@ -2,8 +2,9 @@ const server = require("./server.js");
 const plugins = require("./server-plugins.js");
 const routes = require("./routes/routes.js");
 
-const start = async function() {
+const start = async function () {
   await server.register(plugins);
+  server.validator(require("joi"));
 
   server.route(routes);
 
