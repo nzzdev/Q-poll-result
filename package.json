@@ -52,7 +52,7 @@
     "autoprefixer": "^10.3.6",
     "cssnano": "^5.0.8",
     "glob": "^7.1.6",
-    "jsdom": "^14.1.0",
+    "jsdom": "^17.0.0",
     "postcss": "^8.3.8",
     "postcss-import": "^14.0.2",
     "sass": "^1.42.1"
