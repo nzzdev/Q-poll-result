@@ -10,11 +10,11 @@ const pollTypeInfos = require(`${resourcesDir}/helpers/pollTypeInfos.js`);
 // hence we fetch the JSON schema...
 const schemaString = JSON.parse(
   fs.readFileSync(`${resourcesDir}schema.json`, {
-    encoding: "utf-8"
+    encoding: "utf-8",
   })
 );
 const Ajv = require("ajv");
-const ajv = new Ajv();
+const ajv = new Ajv({ strict: false });
 
 const validate = ajv.compile(schemaString);
 function validateAgainstSchema(item, options) {
@@ -47,25 +47,25 @@ module.exports = {
   options: {
     validate: {
       options: {
-        allowUnknown: true
+        allowUnknown: true,
       },
-      payload: validatePayload
-    }
+      payload: validatePayload,
+    },
   },
-  handler: async function(request, h) {
+  handler: async function (request, h) {
     const context = {
       item: request.payload.item,
-      pollTypeInfos: pollTypeInfos
+      pollTypeInfos: pollTypeInfos,
     };
 
     let renderingInfo = {
       stylesheets: [
         {
-          name: styleHashMap.default
-        }
+          name: styleHashMap.default,
+        },
       ],
-      markup: template.render(context)
+      markup: template.render(context),
     };
     return renderingInfo;
-  }
+  },
 };
