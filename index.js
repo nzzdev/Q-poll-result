@@ -1,18 +1,22 @@
-const server = require("./server.js");
-const plugins = require("./server-plugins.js");
+const Hapi = require("@hapi/hapi");
+const Joi = require("joi");
+
+const server = Hapi.server({
+  port: process.env.PORT || 3000,
+  routes: {
+    cors: true,
+  },
+});
+server.validator(Joi);
+
 const routes = require("./routes/routes.js");
 
-const start = async function () {
-  await server.register(plugins);
-  server.validator(require("joi"));
-
+async function init() {
+  await server.register(require("@hapi/inert"));
   server.route(routes);
-
   await server.start();
-  console.log(`Server running at: ${server.info.uri}`);
-};
-
-start();
+  console.log("server running ", server.info.uri);
+}
 
 async function gracefullyStop() {
   console.log("stopping hapi server");
@@ -29,3 +33,5 @@ async function gracefullyStop() {
 // listen on SIGINT and SIGTERM signal and gracefully stop the server
 process.on("SIGINT", gracefullyStop);
 process.on("SIGTERM", gracefullyStop);
+
+init();
