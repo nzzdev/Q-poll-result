@@ -1,5 +1,6 @@
 const Joi = require("joi");
-const localesDir = `${__dirname}/../resources/locales/`;
+const path = require("path");
+const localesDir = path.join(__dirname, "/../resources/locales/");
 
 module.exports = {
   path: "/locales/{lng}/translation.json",
@@ -15,7 +16,7 @@ module.exports = {
   },
   handler: (request, h) => {
     return h
-      .file(`${localesDir + request.params.lng}/translation.json`)
+      .file(localesDir + request.params.lng + "/translation.json")
       .type("application/json");
   },
 };
