@@ -6,8 +6,8 @@ import commonjs from "@rollup/plugin-commonjs";
 import buble from "@rollup/plugin-buble";
 import svelte from "rollup-plugin-svelte";
 import { terser } from "rollup-plugin-terser";
-import css from "rollup-plugin-css-only";
 import livereload from "rollup-plugin-livereload";
+import sass from "rollup-plugin-sass";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -57,7 +57,7 @@ export default {
   },
   plugins: [
     svelte(),
-    css({
+    sass({
       output: function (styles, styleNodes) {
         const stylesDir = "styles";
         // Create directory if not yet exist or recreate directory if it already exists
