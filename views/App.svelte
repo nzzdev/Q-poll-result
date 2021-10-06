@@ -1,8 +1,8 @@
 <script>
-  import Header from "./Header.html";
-  import Legend from "./Legend.html";
-  import PollResult from "./PollResult.html";
-  import Footer from "./Footer.html";
+  import Header from "./components/Header.svelte";
+  import Legend from "./components/Legend.html";
+  import PollResult from "./components/PollResult.html";
+  import Footer from "./components/Footer.html";
   export let item;
 
   function polls(item) {
