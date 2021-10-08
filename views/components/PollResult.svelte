@@ -1,5 +1,5 @@
 <script>
-  import Legend from "./Legend.html";
+  import Legend from "./Legend.svelte";
   export let pollResult;
   export let index;
   export let numberPolls;
@@ -49,3 +49,54 @@
     </div>
   {/each}
 </div>
+
+<style lang="scss">
+  @import "./../../styles_src/variables";
+
+  .q-poll-result-poll {
+    position: relative;
+    padding: 0px 0px $defaultBarHeight;
+    margin-bottom: $labelLineHeight;
+
+    h3 {
+      margin: 0px;
+      padding: 0px 0px 5px;
+      display: block;
+    }
+
+    &--current {
+      padding: 0px 0px $activeBarHeight;
+
+      .q-poll-result-bar {
+        height: $activeBarHeight;
+
+        span {
+          margin-top: $activeBarHeight + 5px;
+        }
+      }
+    }
+  }
+
+  .q-poll-result-arrow {
+    border: $arrowSize solid currentColor;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -$arrowSize;
+  }
+
+  .q-poll-result-bar {
+    float: left;
+    height: $defaultBarHeight;
+    text-align: center;
+    background: currentColor;
+
+    span {
+      margin-top: $defaultBarHeight + 5px;
+      display: block;
+    }
+  }
+</style>
