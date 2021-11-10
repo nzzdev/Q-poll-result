@@ -5,10 +5,11 @@ import nodeResolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import svelte from "rollup-plugin-svelte";
 import { terser } from "rollup-plugin-terser";
-import css from "rollup-plugin-css-only";
 import livereload from "rollup-plugin-livereload";
+import scss from "rollup-plugin-scss";
+import postcss from "postcss";
+import autoprefixer from "autoprefixer";
 
-const svelteConfig = require("./svelte.config");
 const production = !process.env.ROLLUP_WATCH;
 const scriptsDir = path.join(__dirname, "./scripts_src/");
 const filename = "default";
@@ -56,15 +57,6 @@ function outputCss(styles, styleNodes) {
   }
 
   fs.writeFileSync(`styles/${filename}.css`, styles);
-
-  writeHashmap(
-    "styles/hashMap.json",
-    {
-      name: filename,
-      content: styles,
-    },
-    "css"
-  );
 }
 
 export default {
@@ -75,11 +67,28 @@ export default {
     file: `scripts/${filename}.js`,
   },
   plugins: [
-    svelte({ preprocess: [svelteConfig.sassPreprocessor] }),
-    css({ output: outputCss }),
+    svelte(),
+    scss({
+      watch: [
+        path.join(__dirname, "/styles_src"),
+        path.join(__dirname, "/views"),
+      ],
+      processor: (css) =>
+        postcss([autoprefixer])
+          .process(css)
+          .then((result) => result.css),
+      output: outputCss,
+      outputStyle: "compressed",
+      outFile: path.join(__dirname, "/styles/default.css"),
+      // TODO: Check why embed works but separate sourcemap generation not
+      sourceMap: !production,
+      sourceMapEmbed: !production,
+      failOnError: !production,
+    }),
     nodeResolve({ browser: true }),
     commonjs(),
-    !production && livereload({ watch: "scripts", delay: 800 }),
+    // TODO: Check if watching styles folder is necessary (e.g. hotswapping)
+    !production && livereload({ watch: ["scripts"], delay: 800 }),
     production && terser(),
     generateHashmap(),
   ],
@@ -89,5 +98,8 @@ export default {
   onwarn: function (warning, warn) {
     if (warning.code === "CIRCULAR_DEPENDENCY") return;
     warn(warning);
+  },
+  onerror: function (err) {
+    console.error(err);
   },
 };

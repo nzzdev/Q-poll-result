@@ -1,9 +1,12 @@
 @use "variables";
 
+$barHeight: variables.$defaultBarHeight;
+$activeBarHeight: variables.$activeBarHeight;
+
 .q-poll-result-poll {
   position: relative;
-  padding: 0px 0px $defaultBarHeight;
-  margin-bottom: $labelLineHeight;
+  padding: 0px 0px $barHeight;
+  margin-bottom: variables.$labelLineHeight;
 
   h3 {
     margin: 0px;
@@ -25,24 +28,24 @@
 }
 
 .q-poll-result-arrow {
-  border: $arrowSize solid currentColor;
+  border: variables.$arrowSize solid currentColor;
   border-bottom-color: transparent;
   border-left-color: transparent;
   border-right-color: transparent;
   display: block;
   position: absolute;
   left: 50%;
-  margin-left: -$arrowSize;
+  margin-left: -(variables.$arrowSize);
 }
 
 .q-poll-result-bar {
   float: left;
-  height: $defaultBarHeight;
+  height: $barHeight;
   text-align: center;
   background: currentColor;
 
   span {
-    margin-top: $defaultBarHeight + 5px;
+    margin-top: $barHeight + 5px;
     display: block;
   }
 }
