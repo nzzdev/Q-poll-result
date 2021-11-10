@@ -1,7 +1,7 @@
 <script>
-  export let item;
+  export let title;
 </script>
 
 <h3 class="s-q-item__title">
-  {item.title}
+  {title}
 </h3>

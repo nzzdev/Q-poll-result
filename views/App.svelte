@@ -4,26 +4,28 @@
   import PollResult from "./components/PollResult/PollResult.svelte";
   import Footer from "./components/Footer.svelte";
   export let item;
+  export let pollTypeInfos;
 
-  function polls(item) {
-    return item.polls;
-  }
+  $: rawPollResults = addDisplayInfoToPollResults(item.polls, pollTypeInfos);
+  $: pollResults = filterAndSortPollResults(rawPollResults);
+  $: topPollType = getTopPollType(pollResults);
+  $: topPollAnswers = getTopPollAnswers(pollResults);
 
-  function topPollType(filteredAndSortedPollResults) {
-    if (filteredAndSortedPollResults[0]) {
-      return filteredAndSortedPollResults[0].type;
+  function getTopPollType(pollResults) {
+    if (pollResults[0]) {
+      return pollResults[0].type;
     }
     return "";
   }
 
-  function topPollAnswers(filteredAndSortedPollResults) {
-    if (filteredAndSortedPollResults[0]) {
-      return filteredAndSortedPollResults[0].answers;
+  function getTopPollAnswers(pollResults) {
+    if (pollResults[0]) {
+      return pollResults[0].answers;
     }
     return [];
   }
 
-  function pollResultsWithDisplayInfo(polls, pollTypeInfos) {
+  function addDisplayInfoToPollResults(polls, pollTypeInfos) {
     polls.forEach((poll, index) => {
       // transform object of answers to an array of answer objects containing
       // the answer label, value and css class attribute
@@ -77,7 +79,7 @@
     return polls;
   }
 
-  function filteredAndSortedPollResults(pollResultsWithDisplayInfo) {
+  function filterAndSortPollResults(pollResultsWithDisplayInfo) {
     let sortedResult = pollResultsWithDisplayInfo
       .filter((poll) => {
         const valueSum = poll.answers
@@ -99,13 +101,6 @@
     sortedResult[0].cssClass = "q-poll-result-poll--current";
     return sortedResult;
   }
-
-  function hasCompletePolls(filteredAndSortedPollResults) {
-    return (
-      filteredAndSortedPollResults !== undefined &&
-      filteredAndSortedPollResults.length > 0
-    );
-  }
 </script>
 
 <div class="q-item-container s-q-item">
@@ -113,18 +108,18 @@
   {#if item.subtitle && item.subtitle !== ""}
     <div class="s-q-item__subtitle s-font-note">{item.subtitle}</div>
   {/if}
-  {#if hasCompletePolls}
+  {#if pollResults !== undefined && pollResults.length > 0}
     <Legend answers={topPollAnswers} />
     <div class="q-poll-result-polls">
-      {#each filteredAndSortedPollResults as pollResult, index}
+      {#each pollResults as pollResult, index}
         <PollResult
           {pollResult}
           {index}
-          numberPolls={filteredAndSortedPollResults.length}
+          numberPolls={pollResults.length}
           {topPollType}
         />
       {/each}
     </div>
   {/if}
-  <Footer notes={item.notes} sources={item.sources} />
+  <Footer notes={item.notes} sources={item.sources} acronym={item.acronym} />
 </div>

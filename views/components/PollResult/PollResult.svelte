@@ -5,16 +5,19 @@
   export let numberPolls;
   export let topPollType;
 
+  $: pollType = getPollType(pollResult);
+  $: pollAnswers = getPollAnswers(pollResult);
+  $: pollDate = getPollDate(pollResult);
 
-  function pollType(pollResult) {
+  function getPollType(pollResult) {
     return pollResult.type;
   }
 
-  function pollAnswers(pollResult) {
+  function getPollAnswers(pollResult) {
     return pollResult.answers;
   }
 
-  function pollDate(pollResult) {
+  function getPollDate(pollResult) {
     if (!pollResult.date) {
       return "";
     }
