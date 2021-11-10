@@ -98,7 +98,11 @@
         }
         return 0;
       });
-    sortedResult[0].cssClass = "q-poll-result-poll--current";
+
+    if (sortedResult.length > 0) {
+      sortedResult[0].cssClass = "q-poll-result-poll--current";
+    }
+
     return sortedResult;
   }
 </script>
