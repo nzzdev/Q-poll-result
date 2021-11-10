@@ -1,9 +1,10 @@
 <script>
-  import Legend from "./Legend.svelte";
+  import Legend from "./../Legend/Legend.svelte";
   export let pollResult;
   export let index;
   export let numberPolls;
   export let topPollType;
+
 
   function pollType(pollResult) {
     return pollResult.type;

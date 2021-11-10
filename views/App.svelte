@@ -1,7 +1,7 @@
 <script>
   import Header from "./components/Header.svelte";
-  import Legend from "./components/Legend.svelte";
-  import PollResult from "./components/PollResult.svelte";
+  import Legend from "./components/Legend/Legend.svelte";
+  import PollResult from "./components/PollResult/PollResult.svelte";
   import Footer from "./components/Footer.svelte";
   export let item;
 
@@ -128,13 +128,3 @@
   {/if}
   <Footer notes={item.notes} sources={item.sources} />
 </div>
-
-<style lang="scss">
-  .q-poll-result-polls {
-    height: auto;
-    float: none;
-    clear: both;
-    color: currentColor;
-    margin-top: 25px;
-  }
-</style>
