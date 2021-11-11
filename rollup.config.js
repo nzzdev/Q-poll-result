@@ -7,8 +7,7 @@ import svelte from "rollup-plugin-svelte";
 import { terser } from "rollup-plugin-terser";
 import livereload from "rollup-plugin-livereload";
 import scss from "rollup-plugin-scss";
-import postcss from "postcss";
-import autoprefixer from "autoprefixer";
+const sassConfig = require("./sass.config");
 
 const production = !process.env.ROLLUP_WATCH;
 const scriptsDir = path.join(__dirname, "./scripts_src/");
@@ -49,16 +48,6 @@ function generateHashmap() {
   };
 }
 
-function outputCss(styles, styleNodes) {
-  const stylesDir = "styles";
-
-  if (!fs.existsSync(stylesDir)) {
-    fs.mkdirSync(stylesDir);
-  }
-
-  fs.writeFileSync(`styles/${filename}.css`, styles);
-}
-
 export default {
   input: scriptDirDefaultFileName,
   output: {
@@ -68,23 +57,7 @@ export default {
   },
   plugins: [
     svelte(),
-    scss({
-      watch: [
-        path.join(__dirname, "/styles_src"),
-        path.join(__dirname, "/views"),
-      ],
-      processor: (css) =>
-        postcss([autoprefixer])
-          .process(css)
-          .then((result) => result.css),
-      output: outputCss,
-      outputStyle: "compressed",
-      outFile: path.join(__dirname, "/styles/default.css"),
-      // TODO: Check why embed works but separate sourcemap generation not
-      sourceMap: !production,
-      sourceMapEmbed: !production,
-      failOnError: !production,
-    }),
+    scss({ ...sassConfig.rollup }),
     nodeResolve({ browser: true }),
     commonjs(),
     // TODO: Check if watching styles folder is necessary (e.g. hotswapping)
@@ -98,8 +71,5 @@ export default {
   onwarn: function (warning, warn) {
     if (warning.code === "CIRCULAR_DEPENDENCY") return;
     warn(warning);
-  },
-  onerror: function (err) {
-    console.error(err);
   },
 };

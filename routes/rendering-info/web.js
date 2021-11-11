@@ -1,16 +1,21 @@
 const Boom = require("@hapi/boom");
 const fs = require("fs");
 const path = require("path");
+const sass = require("sass");
+const postcss = require("postcss");
+const autoprefixer = require("autoprefixer");
 
-const stylesDir = path.join(__dirname, "/../../styles/");
-const styleHashMap = require(path.join(stylesDir, "hashMap.json"));
-const scriptsDir = "../../scripts/";
-const scriptHashMap = require(`${scriptsDir}/hashMap.json`);
+const sassConfig = require("./../../sass.config");
 
-// setup svelte
 const viewsDir = `${__dirname}/../../views/`;
+const stylesSrcDir = path.join(__dirname, "/../../styles_src/");
+const resourcesDir = `${__dirname}/../../resources/`;
+
 require("svelte/register");
 const staticTemplate = require(viewsDir + "App.svelte").default;
+const pollTypeInfos = require(`${resourcesDir}/helpers/pollTypeInfos.js`);
+
+const stylesMainPath = path.join(stylesSrcDir, "/main.scss");
 
 // POSTed item will be validated against given schema
 // hence we fetch the JSON schema...
@@ -23,6 +28,36 @@ const Ajv = require("ajv");
 const ajv = new Ajv({ strict: false }); // Added strict false for handling of new ajv version
 
 const validate = ajv.compile(schemaString);
+
+async function processSass(entryPath) {
+  return new Promise((resolve, reject) => {
+    sass.render(
+      {
+        file: entryPath,
+        ...sassConfig.node,
+      },
+      (err, result) => {
+        if (err) {
+          reject("failed to compile stylesheet with 'sass.render'", err);
+          process.exit(1);
+        }
+
+        // TODO: Check if 'from' setting is needed for source maps
+        return postcss(sassConfig.postcssPlugins)
+          .process(result.css)
+          .then((postcssResult) => resolve(postcssResult))
+          .catch((error) => {
+            reject(
+              "failed to compile stylesheet with 'postcss.process'",
+              error
+            );
+            process.exit(1);
+          });
+      }
+    );
+  });
+}
+
 function validateAgainstSchema(item, options) {
   if (validate(item)) {
     return item;
@@ -62,13 +97,12 @@ module.exports = {
     };
 
     const staticTemplateRender = staticTemplate.render(context);
+    const processedSass = await processSass(stylesMainPath);
+
     const renderingInfo = {
       stylesheets: [
         {
-          content: staticTemplateRender.css.code,
-        },
-        {
-          name: styleHashMap["default"],
+          content: processedSass.css,
         },
       ],
       markup: staticTemplateRender.html,

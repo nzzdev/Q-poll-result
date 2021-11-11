@@ -55,6 +55,7 @@
     "@rollup/plugin-commonjs": "^21.0.0",
     "@rollup/plugin-node-resolve": "^13.0.5",
     "autoprefixer": "^10.4.0",
+    "cssnano": "^5.0.10",
     "glob": "^7.2.0",
     "jsdom": "^17.0.0",
     "nodemon": "^2.0.13",
