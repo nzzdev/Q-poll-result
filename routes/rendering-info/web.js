@@ -3,19 +3,18 @@ const fs = require("fs");
 const path = require("path");
 const sass = require("sass");
 const postcss = require("postcss");
-const autoprefixer = require("autoprefixer");
-
 const sassConfig = require("./../../sass.config");
 
 const viewsDir = `${__dirname}/../../views/`;
 const stylesSrcDir = path.join(__dirname, "/../../styles_src/");
 const resourcesDir = `${__dirname}/../../resources/`;
+const mainSassFilePath = path.join(stylesSrcDir, "/main.scss");
+
+const production = !process.env.ROLLUP_WATCH;
 
 require("svelte/register");
 const staticTemplate = require(viewsDir + "App.svelte").default;
 const pollTypeInfos = require(`${resourcesDir}/helpers/pollTypeInfos.js`);
-
-const stylesMainPath = path.join(stylesSrcDir, "/main.scss");
 
 // POSTed item will be validated against given schema
 // hence we fetch the JSON schema...
@@ -29,12 +28,12 @@ const ajv = new Ajv({ strict: false }); // Added strict false for handling of ne
 
 const validate = ajv.compile(schemaString);
 
-async function processSass(entryPath) {
+async function processSass(entryPath, isProduction) {
   return new Promise((resolve, reject) => {
     sass.render(
       {
         file: entryPath,
-        ...sassConfig.node,
+        ...sassConfig.getConfig("node", isProduction),
       },
       (err, result) => {
         if (err) {
@@ -42,9 +41,8 @@ async function processSass(entryPath) {
           process.exit(1);
         }
 
-        // TODO: Check if 'from' setting is needed for source maps
-        return postcss(sassConfig.postcssPlugins)
-          .process(result.css)
+        return postcss(sassConfig.getPostcssPlugins(isProduction))
+          .process(result.css, { from: undefined })
           .then((postcssResult) => resolve(postcssResult))
           .catch((error) => {
             reject(
@@ -97,7 +95,7 @@ module.exports = {
     };
 
     const staticTemplateRender = staticTemplate.render(context);
-    const processedSass = await processSass(stylesMainPath);
+    const processedSass = await processSass(mainSassFilePath, production);
 
     const renderingInfo = {
       stylesheets: [

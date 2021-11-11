@@ -57,10 +57,9 @@ export default {
   },
   plugins: [
     svelte(),
-    scss({ ...sassConfig.rollup }),
+    scss({ ...sassConfig.getConfig("rollup", production) }),
     nodeResolve({ browser: true }),
     commonjs(),
-    // TODO: Check if watching styles folder is necessary (e.g. hotswapping)
     !production && livereload({ watch: ["scripts"], delay: 800 }),
     production && terser(),
     generateHashmap(),
