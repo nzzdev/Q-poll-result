@@ -57,7 +57,7 @@ export default {
   },
   plugins: [
     svelte(),
-    scss({ ...sassConfig.getConfig("rollup", production) }),
+    scss({ ...sassConfig.get(production) }),
     nodeResolve({ browser: true }),
     commonjs(),
     !production && livereload({ watch: ["scripts"], delay: 800 }),

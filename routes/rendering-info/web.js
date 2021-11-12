@@ -1,20 +1,19 @@
 const Boom = require("@hapi/boom");
 const fs = require("fs");
 const path = require("path");
-const sass = require("sass");
-const postcss = require("postcss");
-const sassConfig = require("./../../sass.config");
+const Ajv = require("ajv");
 
-const viewsDir = `${__dirname}/../../views/`;
-const stylesSrcDir = path.join(__dirname, "/../../styles_src/");
-const resourcesDir = `${__dirname}/../../resources/`;
-const mainSassFilePath = path.join(stylesSrcDir, "/main.scss");
-
-const production = !process.env.ROLLUP_WATCH;
+const viewsDir = path.join(__dirname, "/../../views/");
+const stylesDir = path.join(__dirname, "/../../styles/");
+const resourcesDir = path.join(__dirname, "/../../resources/");
 
 require("svelte/register");
-const staticTemplate = require(viewsDir + "App.svelte").default;
-const pollTypeInfos = require(`${resourcesDir}/helpers/pollTypeInfos.js`);
+const staticTemplate = require(path.join(viewsDir, "/App.svelte")).default;
+const styles = fs.readFileSync(path.join(stylesDir, "/default.css")).toString();
+const pollTypeInfos = require(path.join(
+  resourcesDir,
+  "/helpers/pollTypeInfos.js"
+));
 
 // POSTed item will be validated against given schema
 // hence we fetch the JSON schema...
@@ -23,38 +22,9 @@ const schemaString = JSON.parse(
     encoding: "utf-8",
   })
 );
-const Ajv = require("ajv");
-const ajv = new Ajv({ strict: false }); // Added strict false for handling of new ajv version
 
+const ajv = new Ajv({ strict: false });
 const validate = ajv.compile(schemaString);
-
-async function processSass(entryPath, isProduction) {
-  return new Promise((resolve, reject) => {
-    sass.render(
-      {
-        file: entryPath,
-        ...sassConfig.getConfig("node", isProduction),
-      },
-      (err, result) => {
-        if (err) {
-          reject("failed to compile stylesheet with 'sass.render'", err);
-          process.exit(1);
-        }
-
-        return postcss(sassConfig.getPostcssPlugins(isProduction))
-          .process(result.css, { from: undefined })
-          .then((postcssResult) => resolve(postcssResult))
-          .catch((error) => {
-            reject(
-              "failed to compile stylesheet with 'postcss.process'",
-              error
-            );
-            process.exit(1);
-          });
-      }
-    );
-  });
-}
 
 function validateAgainstSchema(item, options) {
   if (validate(item)) {
@@ -95,12 +65,11 @@ module.exports = {
     };
 
     const staticTemplateRender = staticTemplate.render(context);
-    const processedSass = await processSass(mainSassFilePath, production);
 
     const renderingInfo = {
       stylesheets: [
         {
-          content: processedSass.css,
+          content: styles,
         },
       ],
       markup: staticTemplateRender.html,
