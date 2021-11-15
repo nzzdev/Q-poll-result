@@ -57,7 +57,7 @@ export default {
   },
   plugins: [
     svelte(),
-    scss({ ...sassConfig.get(production) }),
+    scss({ ...sassConfig.get(production, writeHashmap) }),
     nodeResolve({ browser: true }),
     commonjs(),
     !production && livereload({ watch: ["scripts"], delay: 800 }),

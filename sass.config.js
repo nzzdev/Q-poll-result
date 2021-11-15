@@ -4,15 +4,29 @@ const postcss = require("postcss");
 const autoprefixer = require("autoprefixer");
 const cssnano = require("cssnano");
 
-function outputCss(styles, styleNodes) {
-  const stylesDir = "styles";
+function createOutputCssFunction(writeHashmapFunction) {
+  const outputCssFunction = (styles, styleNodes) => {
+    const stylesDir = "styles";
 
-  if (!fs.existsSync(stylesDir)) {
-    fs.mkdirSync(stylesDir);
-  }
+    if (!fs.existsSync(stylesDir)) {
+      fs.mkdirSync(stylesDir);
+    }
 
-  fs.writeFileSync(`styles/default.css`, styles);
+    fs.writeFileSync(`styles/default.css`, styles);
+    writeHashmapFunction(
+      "styles/hashMap.json",
+      {
+        name: "default",
+        content: styles,
+      },
+      "css"
+    );
+  };
+
+  return outputCssFunction;
 }
+
+function outputCss(styles, styleNodes) {}
 
 function getPostcssPlugins(isProduction) {
   const postcssPlugins = [autoprefixer];
@@ -24,7 +38,7 @@ function getPostcssPlugins(isProduction) {
   return postcssPlugins;
 }
 
-function get(isProduction) {
+function get(isProduction, writeHashmapFunction) {
   const config = {
     outputStyle: isProduction ? "compressed" : "expanded",
     // Sourcemap generation (specifically writing the file to system) is currently not supported by rollup-plugin-sass (but soon!)
@@ -45,7 +59,7 @@ function get(isProduction) {
           map: { inline: true }, // Set to false after: https://github.com/thgh/rollup-plugin-scss/issues/7
         })
         .then((result) => result.css),
-    output: outputCss,
+    output: createOutputCssFunction(writeHashmapFunction),
   };
 
   return config;
