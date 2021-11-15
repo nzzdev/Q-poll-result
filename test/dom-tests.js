@@ -57,7 +57,7 @@ function elementCount(markup, selector) {
 lab.experiment("dom tests", function () {
   it("should pass if at least one legend is found", async () => {
     const response = await server.inject({
-      url: "/rendering-info/html-static?_id=someid",
+      url: "/rendering-info/web?_id=someid",
       method: "POST",
       payload: {
         item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
@@ -77,7 +77,7 @@ lab.experiment("dom tests", function () {
 
   it("should pass if exactly one current result bar is found", async () => {
     const response = await server.inject({
-      url: "/rendering-info/html-static?_id=someid",
+      url: "/rendering-info/web?_id=someid",
       method: "POST",
       payload: {
         item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
@@ -98,7 +98,7 @@ lab.experiment("dom tests", function () {
 
   it("should pass if exactly three sub result bars are found", async () => {
     const response = await server.inject({
-      url: "/rendering-info/html-static?_id=someid",
+      url: "/rendering-info/web?_id=someid",
       method: "POST",
       payload: {
         item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
@@ -119,7 +119,7 @@ lab.experiment("dom tests", function () {
 
   it("should have a correct footer element", async () => {
     const response = await server.inject({
-      url: "/rendering-info/html-static?_id=someid",
+      url: "/rendering-info/web?_id=someid",
       method: "POST",
       payload: {
         item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),

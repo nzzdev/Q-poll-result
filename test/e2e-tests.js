@@ -1,6 +1,8 @@
 const Lab = require("@hapi/lab");
 const Code = require("@hapi/code");
 const Hapi = require("@hapi/hapi");
+const Inert = require("@hapi/inert");
+const Joi = require("joi");
 const lab = (exports.lab = Lab.script());
 const glob = require("glob");
 
@@ -10,7 +12,6 @@ const after = lab.after;
 const it = lab.it;
 
 const routes = require("../routes/routes.js");
-const plugins = require("../server-plugins.js");
 
 let server;
 
@@ -22,8 +23,8 @@ before(async () => {
         cors: true,
       },
     });
-    server.register(plugins);
-    server.validator(require("joi"));
+    server.validator(Joi);
+    await server.register(Inert);
     server.route(routes);
   } catch (err) {
     expect(err).to.not.exist();
@@ -62,10 +63,20 @@ lab.experiment("locales endpoint", () => {
     const response = await server.inject(request);
     expect(response.statusCode).to.be.equal(200);
   });
+
   it("returns 200 for fr translations", async () => {
     const request = {
       method: "GET",
       url: "/locales/fr/translation.json",
+    };
+    const response = await server.inject(request);
+    expect(response.statusCode).to.be.equal(200);
+  });
+
+  it("returns 200 for de translations", async () => {
+    const request = {
+      method: "GET",
+      url: "/locales/de/translation.json",
     };
     const response = await server.inject(request);
     expect(response.statusCode).to.be.equal(200);
@@ -93,10 +104,10 @@ lab.experiment("stylesheets endpoint", () => {
 });
 
 lab.experiment("rendering-info endpoint", () => {
-  it("returns 200 for /rendering-info/html-static", async () => {
+  it("returns 200 for /rendering-info/web", async () => {
     const request = {
       method: "POST",
-      url: "/rendering-info/html-static",
+      url: "/rendering-info/web",
       payload: {
         item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
         toolRuntimeConfig: {
@@ -106,20 +117,6 @@ lab.experiment("rendering-info endpoint", () => {
     };
     const response = await server.inject(request);
     expect(response.statusCode).to.be.equal(200);
-  });
-});
-
-lab.experiment("migration endpoint", () => {
-  it("returns 304 for /migration", async () => {
-    const request = {
-      method: "POST",
-      url: "/migration",
-      payload: {
-        item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
-      },
-    };
-    const response = await server.inject(request);
-    expect(response.statusCode).to.be.equal(304);
   });
 });
 
@@ -135,7 +132,7 @@ lab.experiment("all non validation fixtures render", () => {
       it(`doesnt fail in rendering fixture ${fixture.title}`, async () => {
         const request = {
           method: "POST",
-          url: "/rendering-info/html-static",
+          url: "/rendering-info/web",
           payload: {
             item: fixture,
             toolRuntimeConfig: {},
