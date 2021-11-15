@@ -5,6 +5,7 @@ module.exports = [
   require("./health.js"),
   require("./fixtures/data.js"),
   require("./locales.js"),
+  require("./migration.js"),
   require("./schema.js"),
   require("./notifications/pollTotalOverOneHundredPercent.js"),
 ];
