@@ -5,11 +5,13 @@ const Ajv = require("ajv");
 
 const viewsDir = path.join(__dirname, "/../../views/");
 const stylesDir = path.join(__dirname, "/../../styles/");
+const scriptsDir = path.join(__dirname, "/../../scripts/");
 const resourcesDir = path.join(__dirname, "/../../resources/");
 
 require("svelte/register");
 const staticTemplate = require(path.join(viewsDir, "/App.svelte")).default;
 const styles = fs.readFileSync(path.join(stylesDir, "/default.css")).toString();
+const scriptHashMap = require(path.join(scriptsDir, "/hashMap.json"));
 const pollTypeInfos = require(path.join(
   resourcesDir,
   "/helpers/pollTypeInfos.js"
@@ -67,11 +69,8 @@ module.exports = {
     const staticTemplateRender = staticTemplate.render(context);
 
     const renderingInfo = {
-      stylesheets: [
-        {
-          content: styles,
-        },
-      ],
+      stylesheets: [{ content: styles }],
+      scripts: [{ name: scriptHashMap["default"] }],
       markup: staticTemplateRender.html,
     };
 
