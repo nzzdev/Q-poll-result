@@ -27,18 +27,23 @@ function getPostcssPlugins(isProduction) {
 function get(isProduction) {
   const config = {
     outputStyle: isProduction ? "compressed" : "expanded",
+    // Sourcemap generation (specifically writing the file to system) is currently not supported by rollup-plugin-sass (but soon!)
+    // See: https://github.com/thgh/rollup-plugin-scss/issues/7
+    // outFile: path.join(__dirname, "/styles/default.css"), // <- Uncomment after: https://github.com/thgh/rollup-plugin-scss/issues/7
     sourceMap: !isProduction,
-    sourceMapEmbed: !isProduction,
+    sourceMapEmbed: !isProduction, // Remove after: https://github.com/thgh/rollup-plugin-scss/issues/7
     failOnError: !isProduction,
-    outFile: path.join(__dirname, "/styles/default.css"),
     watch: [
       path.join(__dirname, "/styles_src"),
       path.join(__dirname, "/views"),
     ],
-    // TODO: Sourcemap creation
     processor: (css) =>
       postcss(getPostcssPlugins(isProduction))
-        .process(css)
+        .process(css, {
+          from: path.join(__dirname, "/styles/default.css"),
+          to: path.join(__dirname, "/styles/default.css"),
+          map: { inline: true }, // Set to false after: https://github.com/thgh/rollup-plugin-scss/issues/7
+        })
         .then((result) => result.css),
     output: outputCss,
   };
