@@ -19,9 +19,6 @@ before(async () => {
   try {
     server = Hapi.server({
       port: process.env.PORT || 3000,
-      routes: {
-        cors: true,
-      },
     });
     server.validator(Joi);
     await server.register(Inert);
