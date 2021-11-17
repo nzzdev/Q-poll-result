@@ -18,6 +18,7 @@ before(async () => {
     server = Hapi.server({
       port: process.env.PORT || 3000,
     });
+    server.validator(require("joi"));
     server.route(routes);
   } catch (err) {
     expect(err).to.not.exist();
@@ -50,22 +51,22 @@ function elementCount(markup, selector) {
   });
 }
 
-lab.experiment("dom tests", function() {
+lab.experiment("dom tests", function () {
   it("should pass if at least one legend is found", async () => {
     const response = await server.inject({
-      url: "/rendering-info/html-static?_id=someid",
+      url: "/rendering-info/web?_id=someid",
       method: "POST",
       payload: {
         item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
         pollTypeInfos: require("../resources/helpers/pollTypeInfos.js"),
         toolRuntimeConfig: {
-          displayOptions: {}
-        }
-      }
+          displayOptions: {},
+        },
+      },
     });
 
     return elementCount(response.result.markup, "ul.q-poll-result-legend").then(
-      value => {
+      (value) => {
         expect(value).to.be.greaterThan(0);
       }
     );
@@ -73,61 +74,61 @@ lab.experiment("dom tests", function() {
 
   it("should pass if exactly one current result bar is found", async () => {
     const response = await server.inject({
-      url: "/rendering-info/html-static?_id=someid",
+      url: "/rendering-info/web?_id=someid",
       method: "POST",
       payload: {
         item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
         pollTypeInfos: require("../resources/helpers/pollTypeInfos.js"),
         toolRuntimeConfig: {
-          displayOptions: {}
-        }
-      }
+          displayOptions: {},
+        },
+      },
     });
 
     return elementCount(
       response.result.markup,
       "div.q-poll-result-poll--current"
-    ).then(value => {
+    ).then((value) => {
       expect(value).to.be.equal(1);
     });
   });
 
   it("should pass if exactly three sub result bars are found", async () => {
     const response = await server.inject({
-      url: "/rendering-info/html-static?_id=someid",
+      url: "/rendering-info/web?_id=someid",
       method: "POST",
       payload: {
         item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
         pollTypeInfos: require("../resources/helpers/pollTypeInfos.js"),
         toolRuntimeConfig: {
-          displayOptions: {}
-        }
-      }
+          displayOptions: {},
+        },
+      },
     });
 
     return elementCount(
       response.result.markup,
       ".q-poll-result-poll--current > .q-poll-result-bar"
-    ).then(value => {
+    ).then((value) => {
       expect(value).to.be.equal(3);
     });
   });
 
   it("should have a correct footer element", async () => {
     const response = await server.inject({
-      url: "/rendering-info/html-static?_id=someid",
+      url: "/rendering-info/web?_id=someid",
       method: "POST",
       payload: {
         item: require("../resources/fixtures/data/mixed-3-5-sorted.json"),
         pollTypeInfos: require("../resources/helpers/pollTypeInfos.js"),
         toolRuntimeConfig: {
-          displayOptions: {}
-        }
-      }
+          displayOptions: {},
+        },
+      },
     });
 
     return elementCount(response.result.markup, ".s-q-item__footer").then(
-      value => {
+      (value) => {
         expect(value).to.be.equal(1);
       }
     );
